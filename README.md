@@ -5,4 +5,4 @@
 
 ## Technologies involved:
 1. **Frontend:** HTML, CSS
-2. **Backend:** Flask/Django, Python, MongoDB for Database
+2. **Backend:** Flask or Django, Python, MongoDB or SQLite for Database
