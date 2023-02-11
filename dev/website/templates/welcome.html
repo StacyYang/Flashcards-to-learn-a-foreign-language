@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<!-- Header-->
+<header class="bg-dark bg-gradient py-5" >
+  <div class="container px-5">
+      <div class="row gx-5 justify-content-center">
+          <div class="col-lg-2 ">
+              <div class="img">
+                <img src="../static/flashy.jpg" class="rounded-circle" width="150" height="150"> 
+              </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="text-center my-5">
+                  <h1 class="display-10 fw-bolder text-white mb-4">Unlock the power of language, learning with just a flash of a card.</h1>
+                  <p class="lead text-white-50 mb-4">Quickly study and quiz yourself, let your language learning journey begins here!</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+
+<!-- Features section-->
+<section class="py-5" id="features" style="background-color: rgb(243, 246, 248);">
+  <div class="container px-5 my-5">
+      <div class="row gx-5">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+              <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
+              <h2 class="h4 fw-bolder">Study Mode</h2>
+              <p>Advance your language skills with the power of flashcards. Discover your potential to master a new language. In Study Mode, we won't keep any scores.</p>
+          </div>
+
+          <div class="col-lg-6 mb-5 mb-lg-0">
+              <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
+              <h2 class="h4 fw-bolder">Quiz Mode</h2>
+              <p>Take your language learning to the next level with interactive quizzes. Elevate your language learning experience through our multiple choices questions and true or false questions.</p>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<!--Our team members-->
+<div class="container-fluid text-center">
+  <br><br><br><h1 class="mb-0">Meet our team members</h1><span>Luna R is a squad of accomplished individuals.</span></div> <br>
+  <div class="row"> 
+    <div class="col">
+      <div class="card h-100 shadow">
+        <img src="../static/person1.jpg" class="card-img-top">
+        <div class="card-body shadow bg-white rounded">
+          <h5 class="card-title">Xinghai Nian</h5>
+          <p class="card-text">Full stack</p>
+          <p class="card-text">Says ChatGPT: Xinghai is confident, charming, and stylish. He is the life of the party and can easily connect with people from all walks of life. Despite his popularity, he remains humble and approachable.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow">
+        <img src="../static/person2.jpg" class="card-img-top">
+        <div class="card-body shadow bg-white rounded">
+          <h5 class="card-title">Bingzhen Chen</h5>
+          <p class="card-text">Full stack</p>
+          <p class="card-text">Says ChatGPT: Bingzhen can be outgoing and social, or introverted and reserved. He can be passionate about his hobbies and interests, and can also be dedicated to his family and friends.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100 shadow">
+        <img src="../static/person3.jpg" class="card-img-top">
+        <div class="card-body shadow bg-white rounded">
+          <h5 class="card-title">Xiaoqian Yang</h5>
+          <p class="card-text">Full stack</p>
+          <p class="card-text">Says ChatGPT: Xiaoqian is self-assured and radiates positive energy, making her a joy to be around. She has a unique sense of style that sets her apart and is not afraid to take risks and try new things. Despite her cool demeanor, she is empathetic and caring, which only adds to her cool factor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
+
+{% endblock %}
+
+
+
+
