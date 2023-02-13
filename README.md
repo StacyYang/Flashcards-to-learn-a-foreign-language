@@ -8,3 +8,24 @@
 ## Technologies involved:
 1. **Frontend:** HTML, CSS, JavaScript
 2. **Backend:** Flask/Jinja, Python, SQLite for Database
+
+## Setup & Install:
+Make sure you have the latest version of Python installed.
+
+```bash
+git clone <repo-url>
+```
+
+```bash
+pip install -r docs/requirements.txt
+```
+
+## Running The App
+
+```bash
+python main.py
+```
+
+## Viewing The App
+
+Go to `http://127.0.0.1:5000`
