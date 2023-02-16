@@ -5,7 +5,12 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        username = request.form.get('username').strip()
+        password = request.form.get('password').strip()
+
     return render_template("login.html", boolen="True")
+
 
 @auth.route('/logout')
 def logout():
