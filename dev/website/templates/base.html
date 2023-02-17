@@ -32,13 +32,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="navbar-nav">
-        
+          {% if user.is_authenticated %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          
-          <a class="nav-item nav-link" id="login" href="/login">Login</a>
-          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-          
+          {% else %}
+          <a class="nav-item nav-link" id="home" href="/">Home</a>
+          <a class="nav-item nav-link" id="login" href="/login">Login/Sign up</a>
+          {% endif %}
         </div>
       </div>
     </nav>
@@ -77,7 +77,7 @@
 
 
     <!--Things that need vary in each html put here-->
-    <div class="container-lg" style="margin-bottom:0, 60px;"></div>
+    <div class="container" ></div>
       {% block content %}
 
       {% endblock%}

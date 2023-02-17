@@ -24,7 +24,13 @@ class Score(db.Model):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
-    email = db.Column(db.String(150), unique=True)
+    email = db.Column(db.String(150))
     password = db.Column(db.String(150))
     notes= db.relationship('Note')
     scores= db.relationship('Score')
+
+
+# Tester user
+# username: tester
+# email: test@gmail.com 
+# password: 1234567
