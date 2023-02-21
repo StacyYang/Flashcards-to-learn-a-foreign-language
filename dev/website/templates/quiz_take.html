@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Take Quiz{% endblock %}
+
+{% block content %}
+
+<h1>Take Quiz</h1>
+<form method="POST" action="/quiz/take">
+    {% for quiz in quizzes %}
+    <p>{{ quiz.question }}</p>
+    <input type="radio" id="answer-{{ quiz.id }}-1" name="answer-{{ quiz.id }}" value="1">
+    <label for="answer-{{ quiz.id }}-1">{{ quiz.option1 }}</label><br>
+    <input type="radio" id="answer-{{ quiz.id }}-2" name="answer-{{ quiz.id }}" value="2">
+    <label for="answer-{{ quiz.id }}-2">{{ quiz.option2 }}</label><br>
+    <input type="radio" id="answer-{{ quiz.id }}-3" name="answer-{{ quiz.id }}" value="3">
+    <label for="answer-{{ quiz.id }}-3">{{ quiz.option3 }}</label><br>
+    <input type="radio" id="answer-{{ quiz.id }}-4" name="answer-{{ quiz.id }}" value="4">
+    <label for="answer-{{ quiz.id }}-4">{{ quiz.option4 }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+
+
+
+
+{% endblock %}

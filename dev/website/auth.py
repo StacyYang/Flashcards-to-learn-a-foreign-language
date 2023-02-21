@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User
+from .models import User, Quiz_M, Quiz_TF
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ## means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
-
+from sqlalchemy.sql import func
 
 
 auth = Blueprint('auth', __name__)
@@ -71,3 +71,9 @@ def logout():
     return redirect(url_for('auth.login'))
 
 
+
+@auth.route('/quiz/take', methods=['GET', 'POST'])
+def take_quiz():
+   
+    return render_template('quiz_take.html')
+   
