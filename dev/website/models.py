@@ -49,6 +49,7 @@ class User(db.Model, UserMixin):
 # Multiple choices questions
 class Quiz_M(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    language = db.Column(db.String(20))
     question = db.Column(db.String(500, collation='utf8mb4_unicode_ci'))
     option1 = db.Column(db.String(200, collation='utf8mb4_unicode_ci'))
     option2 = db.Column(db.String(200, collation='utf8mb4_unicode_ci'))
@@ -64,6 +65,7 @@ class Quiz_M(db.Model):
 # True or false questions
 class Quiz_TF(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    language = db.Column(db.String(20))
     question = db.Column(db.String(500, collation='utf8mb4_unicode_ci'))
     is_true = db.Column(db.Boolean)
     
