@@ -1,25 +1,56 @@
 {% extends "base.html" %}
 {% block title %}Take Quiz{% endblock %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
 
 {% block content %}
+<div class="container ">
 
-<h1>Take Quiz</h1>
-<form method="POST" action="/quiz/take">
-    {% for quiz in quizzes %}
-    <p>{{ quiz.question }}</p>
-    <input type="radio" id="answer-{{ quiz.id }}-1" name="answer-{{ quiz.id }}" value="1">
-    <label for="answer-{{ quiz.id }}-1">{{ quiz.option1 }}</label><br>
-    <input type="radio" id="answer-{{ quiz.id }}-2" name="answer-{{ quiz.id }}" value="2">
-    <label for="answer-{{ quiz.id }}-2">{{ quiz.option2 }}</label><br>
-    <input type="radio" id="answer-{{ quiz.id }}-3" name="answer-{{ quiz.id }}" value="3">
-    <label for="answer-{{ quiz.id }}-3">{{ quiz.option3 }}</label><br>
-    <input type="radio" id="answer-{{ quiz.id }}-4" name="answer-{{ quiz.id }}" value="4">
-    <label for="answer-{{ quiz.id }}-4">{{ quiz.option4 }}</label><br>
-    {% endfor %}
-    <input type="submit" value="Submit">
-</form>
+  <h1>Take the Quiz</h1>
+  <form method="post" action="{{ url_for('auth.take_quiz') }}">
 
+      <div class="quiz_type">Multiple-choice questions, choose one answer.</div>
+      {% for quiz in quizzes_multi %}
+        {% set question_number = loop.index %}
+        <div class="quiz-option">
+          <h3>No. {{question_number}}: {{ quiz.question }}</h3>
+          <input type="radio" id="answer-{{ quiz.id }}-1" name="answer-{{ quiz.id }}" value="1">
+            <label for="answer-{{ quiz.id }}-1">{{ quiz.option1 }}</label><br>
+            <input type="radio" id="answer-{{ quiz.id }}-2" name="answer-{{ quiz.id }}" value="2">
+            <label for="answer-{{ quiz.id }}-2">{{ quiz.option2 }}</label><br>
+            <input type="radio" id="answer-{{ quiz.id }}-3" name="answer-{{ quiz.id }}" value="3">
+            <label for="answer-{{ quiz.id }}-3">{{ quiz.option3 }}</label><br>
+            <input type="radio" id="answer-{{ quiz.id }}-4" name="answer-{{ quiz.id }}" value="4">
+            <label for="answer-{{ quiz.id }}-4">{{ quiz.option4 }}</label><br>
+        </div>
+      {% endfor %}
 
+    
+
+      <br>
+      <div class="quiz_type">True or False questions, choose one answer.</div>
+      {% for quiz in quizzes_tf %}
+      {% set question_number = loop.index %}
+      <div class="quiz-option">
+        <h3>No. {{question_number+5}}: {{ quiz.question }}</h3>
+        <div>
+          <input type="radio" id="quiz-{{ quiz.id }}-true" name="answer-{{ quiz.id }}" value="1">
+          <label for="quiz-{{ quiz.id }}-true">True</label>
+        </div>
+        <div>
+          <input type="radio" id="quiz-{{ quiz.id }}-false" name="answer-{{ quiz.id }}" value="0">
+          <label for="quiz-{{ quiz.id }}-false">False</label>
+        </div>
+      </div>
+      {% endfor %}
+
+    
+
+    <button class="quiz-submit-button"type="submit">Submit</button>
+  </form>
+
+</div>
 
 
 {% endblock %}

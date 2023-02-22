@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ## means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.sql import func
+from builtins import enumerate
+
 
 
 auth = Blueprint('auth', __name__)
@@ -72,10 +74,35 @@ def logout():
 
 
 
-@auth.route('/quiz/take', methods=['GET', 'POST'])
+@auth.route('/quiz_take', methods=['GET', 'POST'])
 def take_quiz():
-   
-    return render_template('quiz_take.html')
+    # select 10 random quiz questions from the database
+    quizzes_multi= Quiz_M.query.order_by(func.random()).limit(5).all()
+    quizzes_tf= Quiz_TF.query.order_by(func.random()).limit(5).all()
+    
+
+    if request.method == 'POST':
+        # Get the user's answers
+        answers = {}
+        for key, value in request.form.items():
+            if key.startswith('answer-'):
+                quiz_id = int(key.split('-')[1])
+                answers[quiz_id] = int(value)
+
+        # Calculate the score
+        score = 0
+        for quiz in quizzes_multi:
+             if quiz.answer == answers.get(quiz.id):
+                score += 10
+        for quiz in quizzes_tf:
+             if quiz.answer == answers.get(quiz.id):
+                score += 10
+        
+        # Display the score
+        return render_template('quiz_result.html', user=current_user, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf, score=score, total=100)
+    else:
+        return render_template('quiz_take.html', user=current_user, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf)
+
    
 
 

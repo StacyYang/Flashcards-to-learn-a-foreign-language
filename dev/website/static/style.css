@@ -175,3 +175,55 @@ color: #b3b3b3;
       margin-top: 0;
     }
 }
+
+
+
+
+/* Style the radio buttons and labels for quiz_take.html*/
+
+
+.quiz-option {
+	display: block;
+	margin: 10px 0;
+	background-color: #4b4848;
+	background-image: url(../static/pics/quiz_take_bg.jpg);
+	filter: invert(100%);
+ 	-webkit-filter: invert(100%);
+	padding: 25px;
+	margin-bottom: 20px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+  
+.quiz-option input[type="radio"] {
+	display: inline-block;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+.quiz-option label {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 1.2em;
+	margin-bottom: 7px;
+}
+
+.quiz_type{
+	font-size: 1.2em;
+	color: rgba(255, 217, 0, 0.59);
+    line-height: 1.5;
+	margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.quiz-submit-button {
+	background-color: #a2881f;
+	color: white;
+	border-radius: 5px;
+	padding: 10px 20px;
+	font-size: 18px;
+	border: none;
+  }
+  
+.quiz-submit-button:hover {
+	background-color: #5e8404;
+}

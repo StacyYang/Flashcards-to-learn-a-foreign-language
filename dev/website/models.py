@@ -50,12 +50,12 @@ class User(db.Model, UserMixin):
 class Quiz_M(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     language = db.Column(db.String(20))
-    question = db.Column(db.String(500, collation='utf8mb4_unicode_ci'))
-    option1 = db.Column(db.String(200, collation='utf8mb4_unicode_ci'))
-    option2 = db.Column(db.String(200, collation='utf8mb4_unicode_ci'))
-    option3 = db.Column(db.String(200, collation='utf8mb4_unicode_ci'))
-    option4 = db.Column(db.String(200, collation='utf8mb4_unicode_ci'))
-    answer = db.Column(db.String(200, collation='utf8mb4_unicode_ci'))
+    question = db.Column(db.String(500))
+    option1 = db.Column(db.String(200))
+    option2 = db.Column(db.String(200))
+    option3 = db.Column(db.String(200))
+    option4 = db.Column(db.String(200))
+    answer = db.Column(db.String(200))
 
     def __repr__(self):
         return f"<Quiz_M {self.id}: {self.question}? {self.answer}"
@@ -66,7 +66,7 @@ class Quiz_M(db.Model):
 class Quiz_TF(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     language = db.Column(db.String(20))
-    question = db.Column(db.String(500, collation='utf8mb4_unicode_ci'))
+    question = db.Column(db.String(500))
     is_true = db.Column(db.Boolean)
     
     def __repr__(self):
