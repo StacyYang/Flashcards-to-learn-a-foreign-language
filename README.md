@@ -1,6 +1,6 @@
 # Flashcards-to-learn-a-foreign-language
-## Team name: Luna R
-## Team member: Xinghai Nian, Bingzhen Chen, Xiaoqian Yang
+### Team name: Luna R
+### Team member: Xinghai Nian, Bingzhen Chen, Xiaoqian Yang
 ## Description: 
 1. A website where users can learn a foreign language using flashcards with their friends or alone. 
 2. Users need to register their accounts, once login in, there are two modes:
