@@ -67,7 +67,7 @@ class Quiz_TF(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     language = db.Column(db.String(20))
     question = db.Column(db.String(500))
-    is_true = db.Column(db.Boolean)
+    answer = db.Column(db.String(50))
     
     def __repr__(self):
-        return f"<Quiz_TF {self.id}: {self.question}? {self.is_true}"
+        return f"<Quiz_TF {self.id}: {self.question}? {self.answer}"

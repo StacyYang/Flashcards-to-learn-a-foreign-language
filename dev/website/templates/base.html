@@ -32,11 +32,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <div class="navbar-nav">
+        <div class="navbar-nav align-items-center" style="height: 100%;">
           {% if user.is_authenticated %}
+          <img src="{{ url_for('static', filename='pics/flashy.jpg') }}" alt="Logo" width="50" height="50"  class="rounded-circle" >
+          <a class="nav-item nav-link" style="color: rgb(237, 145, 34);">Welcome, {{ user.username }}!</a>
           <a class="nav-item nav-link" id="home" href="/">Home</a>
+          <a class="nav-item nav-link" id="choice" href="/choose_lang_mode">Choose language and mode</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+          
           {% else %}
+          <img src="{{ url_for('static', filename='pics/flashy.jpg') }}" alt="Logo" width="50" height="50"  class="rounded-circle" >
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="login" href="/login">Login/Sign up</a>
           {% endif %}

@@ -182,7 +182,7 @@ color: #b3b3b3;
 /* Style the radio buttons and labels for quiz_take.html*/
 
 
-.quiz-option {
+.quiz-option, .choose-option {
 	display: block;
 	margin: 10px 0;
 	background-color: #4b4848;
@@ -227,3 +227,4 @@ color: #b3b3b3;
 .quiz-submit-button:hover {
 	background-color: #5e8404;
 }
+

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Choose Language and Mode{% endblock %}
+  
+{% block content %}
+<!-- Features section-->
+<header class="bg-dark bg-gradient py-5">
+  <div class="container px-5">
+    <div class="row gx-5 justify-content-center">
+      <div class="col-lg-6">
+        <div class="text-center my-5">
+          <h1 class="display-10 fw-bolder text-white mb-4">Welcome to Flashy.</h1>
+          <p class="lead text-white-50 mb-4">Let your study journey starts here with us.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row gx-5 justify-content-center">
+        <div class="col-lg-4">
+            <div class="text-center my-5">
+                <h2 class="fs-4 card-title fw-bolder text-white">About Flashy</h2>
+            </div>
+            <div class="rounded-3 p-4">
+                <p class="m-0 text-white-50">Flashy is a language learning platform that offers interactive flashcards and quizzes to help learners improve their language skills.</p><br>
+                <p class="m-0 text-white-50">Languages we contain:</p>
+                <p class="m-0 text-white-50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Chinese/Mandarin</p>
+                <p class="m-0 text-white-50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Korean(dummy for now)</p>
+                <p class="m-0 text-white-50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Spanish(dummy)</p>
+                <p class="m-0 text-white-50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;French(dummy)</p>
+                <p class="m-0 text-white-50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Italian(dummy)</p>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="row gx-5 my-5">
+                <div class="col-12 mb-5 d-flex justify-content-center">
+                    <div class="text-center me-4">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 120px; height: 120px; background-color: #8c6d107a;">
+                            <h2 class="fs-4 card-title fw-bolder m-0 text-white">Study Mode</h2>
+                        </div>
+                    </div>
+                    <div class="rounded-3 bg-light p-4">
+                        <p class="m-0">Advance your language skills with the power of flashcards. Discover your potential to master a new language. In Study Mode, we won't keep any scores.</p>
+                    </div>
+                </div>
+                <div class="col-12 mb-5 d-flex justify-content-center">
+                    <div class="text-center me-4">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 120px; height: 120px; background-color: #dc354672;">
+                            <h2 class="fs-4 card-title fw-bolder m-0 text-white">Quiz Mode</h2>
+                        </div>
+                    </div>
+                    <div class="rounded-3 bg-light p-4">
+                        <p class="m-0">Take your language learning to the next level with interactive quizzes. Elevate your language learning experience through our multiple choices questions and true or false questions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="text-center my-5">
+                <h2 class="fs-4 card-title fw-bolder text-white">Why Flashy?</h2>
+            </div>
+            <div class="rounded-3 p-4">
+                <p class="m-0 text-white-50">Flashy is the best way to learn a new language, with a user-friendly interface, engaging activities, and personalized content to suit your individual learning style.</p>
+            </div>
+        </div>
+    </div>
+    
+</header>
+
+ 
+
+<!-- choose language and mode-->
+<section class="container ">
+    <div class="text-center my-5">
+        <h1 class="display-10 fw-bolder text-white mb-4">Choose language and mode.</h1>
+        <p class="lead text-white-50 mb-4">Never hesitate to start.</p>
+    </div>
+
+    <form method="post" class="choose-option" action="{{ url_for('auth.choose_lang_mode') }}">
+        <div class="form-group text-center">
+            <h2 class="mb-3">Choose Language:</h2>
+            <select class="form-control d-inline-block" id="language" name="language" style="width:50%;">
+                <option value="Chinese">Chinese</option>
+                <!-- <option value="Korean">Korean</option>
+                <option value="Spanish">Spanish</option>
+                <option value="French">French</option>
+                <option value="Italian">Italian</option> -->
+            </select>
+        </div>
+
+        <div class="form-group text-center">
+            <h2 class=" mt-4 mb-3">Choose Mode:</h2>
+            <select class="form-control d-inline-block" id="mode" name="mode" style="width:50%;">
+                <option value="study">Study</option>
+                <option value="quiz">Quiz</option>
+            </select>
+        </div>
+
+        <br><br>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 mt-3">Start</button><br><br><br><br>
+        </div>
+    </form>
+    <br><br><br><br><br><br><br><br>
+
+</section>
+
+
+
+
+{% endblock %}
