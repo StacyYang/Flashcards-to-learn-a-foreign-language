@@ -88,6 +88,7 @@ def choose_lang_mode():
             return redirect(url_for('auth.take_quiz',  user=current_user, language=language, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf))
 
         elif mode == 'study':
+            #####################auth.study
             return redirect(url_for('auth.study', language=language, user=current_user))
     
     return render_template("choose_lang_mode.html", user=current_user)
@@ -124,7 +125,7 @@ def take_quiz():
         
         # Display the score
         #######need to change here for quiz_result  redirect
-        return render_template('quiz_result.html', user=current_user, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf, language=language, score=score, total=100)
+        return render_template('quiz_result.html', user=current_user, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf, language=language, answers=answers, score=score, total=100)
     
     # If it's a GET request, display the quiz questions
     return render_template('quiz_take.html', user=current_user, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf, language=language)

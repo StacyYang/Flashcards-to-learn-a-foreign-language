@@ -3,8 +3,53 @@
 
 {% block content %}
 
-<h1>Quiz Result</h1>
-    <p>You scored {{ score }} out of {{ total }}.</p>
-    <a href="/">Back to Quiz</a>
+<div class="container">
+
+    <h1>Quiz Results</h1>
+    <h3>Your Score: {{ score }} / {{ total }}</h3>
+    
+    <h2>Multiple-choice Questions</h2>
+    <ul>
+    {% for quiz in quizzes_multi %}
+      {% set question_number = loop.index %}
+      <li>
+        <p><strong>No. {{ question_number }}: {{ quiz.question }}</strong></p>
+        <p>Correct Answer: {{ quiz.get_answer_string() }}</p>
+        {% if answers.get(quiz.id) %}
+          {% if quiz.answer == answers.get(quiz.id) %}
+            <p>Your Answer: {{ quiz.get_option_string(answers.get(quiz.id)) }} (Correct)</p>
+          {% else %}
+            <p>Your Answer: {{ quiz.get_option_string(answers.get(quiz.id)) }} (Incorrect)</p>
+          {% endif %}
+        {% else %}
+          <p>Your Answer: No answer provided</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+    
+    <h2>True or False Questions</h2>
+    <ul>
+    {% for quiz in quizzes_tf %}
+      {% set question_number = loop.index + quizzes_multi|length %}
+      <li>
+        <p><strong>No. {{ question_number }}: {{ quiz.question }}</strong></p>
+        <p>Correct Answer: {{ quiz.get_answer_string() }}</p>
+        {% if answers.get(quiz.id) %}
+          {% if quiz.answer == answers.get(quiz.id) %}
+            <p>Your Answer: {{ quiz.get_option_string(answers.get(quiz.id)) }} (Correct)</p>
+          {% else %}
+            <p>Your Answer: {{ quiz.get_option_string(answers.get(quiz.id)) }} (Incorrect)</p>
+          {% endif %}
+        {% else %}
+          <p>Your Answer: No answer provided</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  
+</div>
+
+
 
 {% endblock %}

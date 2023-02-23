@@ -60,6 +60,30 @@ class Quiz_M(db.Model):
     def __repr__(self):
         return f"<Quiz_M {self.id}: {self.question}? {self.answer}"
 
+    def get_answer_string(self):
+        if self.answer == self.option1:
+            return self.option1
+        elif self.answer == self.option2:
+            return self.option2
+        elif self.answer == self.option3:
+            return self.option3
+        elif self.answer == self.option4:
+            return self.option4
+        else:
+            return "Invalid answer"
+
+    def get_option_string(self, option):
+        if option == 1:
+            return self.option1
+        elif option == 2:
+            return self.option2
+        elif option == 3:
+            return self.option3
+        elif option == 4:
+            return self.option4
+        else:
+            return "Invalid option"
+
 
 
 # True or false questions
@@ -71,3 +95,17 @@ class Quiz_TF(db.Model):
     
     def __repr__(self):
         return f"<Quiz_TF {self.id}: {self.question}? {self.answer}"
+
+    def get_answer_string(self):
+        if self.answer:
+            return "True"
+        else:
+            return "False"
+
+    def get_option_string(self, option):
+        if option == 1:
+            return "True"
+        elif option == 2:
+            return "False"
+        else:
+            return "Invalid option"
