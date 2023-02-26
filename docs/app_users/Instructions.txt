@@ -1,1 +1,10 @@
-
+User Manual：
+Go to the website's
+Click on the "Sign up" button to create an account or "Sign In" if users already have an account.
+After users are signed in, choose the language want to study.
+Select "Study Mode" for learning foreign languages
+In "Study Mode," users will see flashcards with a word or phrase in the language user selected on one side, and the translation on the other side. 
+When users are ready, go bcak then select "Quiz Mode".
+In "Quiz Mode," users will be presented with multiple-choice, true and false questions to test knowledge of the language.
+The score, rank, and time taken will be saved automatically.
+To log out, click on the "Logout" button on the top of the page.
