@@ -1,6 +1,1 @@
-Open the project in IDE
-Review the code and documentation to understand the current state of the product.
-Run the website locally to test the functionality
-Test the website, login with the account provided, then selecting a language, and using quiz modes.
-Check that the data is saved correctly
-Test any new features or changes made to the website
+
