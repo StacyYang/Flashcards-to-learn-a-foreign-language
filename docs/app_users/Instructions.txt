@@ -1,4 +1,3 @@
-User Manual：
 Go to the website's
 Click on the "Sign up" button to create an account or "Sign In" if users already have an account.
 After users are signed in, choose the language want to study.
