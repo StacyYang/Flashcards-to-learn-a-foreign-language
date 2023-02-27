@@ -1,3 +1,6 @@
+# File to populate multiple-choice questions and true/false questions into database.
+# Each questions will be checked before populating to database, Only new questions will be populated to database.
+
 from .models import Quiz_M, Quiz_TF
 from . import db
 
@@ -60,7 +63,7 @@ quizzes_M = [
     {   
         'language': 'Chinese',
         'question_text': 'How do you say "Thank you"?',
-        'option1': '再见',
+        'option1': '谢谢',
         'option2': '晚上好',
         'option3': '下午好',
         'option4': '早上好',

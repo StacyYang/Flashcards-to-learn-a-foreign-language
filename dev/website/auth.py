@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from .models import User, Quiz_M, Quiz_TF
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ## means from __init__.py import db
@@ -83,9 +83,9 @@ def choose_lang_mode():
 
         if mode == 'quiz':
             # Also need to pass quizzes_multi and quizzes_tf here
-            quizzes_multi= Quiz_M.query.filter_by(language=language).order_by(func.random()).limit(5).all()
-            quizzes_tf= Quiz_TF.query.filter_by(language=language).order_by(func.random()).limit(5).all()
-            return redirect(url_for('auth.take_quiz',  user=current_user, language=language, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf))
+            #quizzes_multi= Quiz_M.query.filter_by(language=language).order_by(func.random()).limit(5).all()
+            #quizzes_tf= Quiz_TF.query.filter_by(language=language).order_by(func.random()).limit(5).all()
+            return redirect(url_for('auth.take_quiz',  user=current_user, language=language))
 
         elif mode == 'study':
             #####################auth.study
@@ -96,6 +96,7 @@ def choose_lang_mode():
 
 
 @auth.route('/quiz_take', methods=['GET', 'POST'])
+@login_required
 def take_quiz():
     # Get the language from the URL parameter
     language = request.args.get('language', 'Chinese')
@@ -104,32 +105,56 @@ def take_quiz():
     # Use the chosen language to filter the quiz questions using the filter_by() method.
     quizzes_multi= Quiz_M.query.filter_by(language=language).order_by(func.random()).limit(5).all()
     quizzes_tf= Quiz_TF.query.filter_by(language=language).order_by(func.random()).limit(5).all()
-    
+
 
     if request.method == 'POST':
-        # Get the user's answers
-        answers = {}
-        for key, value in request.form.items():
-            if key.startswith('answer-'):
-                quiz_id = int(key.split('-')[1])
-                answers[quiz_id] = int(value)
-
-        # Calculate the score
+        # Initialize the a list of dictionaries. 
+        quiz_list = []
+        user_answers = request.form
         score = 0
-        for quiz in quizzes_multi:
-             if quiz.answer == answers.get(quiz.id):
-                score += 10
-        for quiz in quizzes_tf:
-             if quiz.answer == answers.get(quiz.id):
-                score += 10
-        
-        # Display the score
-        #######need to change here for quiz_result  redirect
-        return render_template('quiz_result.html', user=current_user, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf, language=language, answers=answers, score=score, total=100)
-    
-    # If it's a GET request, display the quiz questions
-    return render_template('quiz_take.html', user=current_user, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf, language=language)
 
+        for key, value in user_answers.items():
+            #print(key, value)
+            if key.startswith('answer-'):
+                quiz_id = key.split('-')[1]
+                #print(quiz_id)  # quiz id in database
+                if key.endswith('multi'):
+                    question = Quiz_M.query.filter_by(id=quiz_id).first()
+                    question_text = question.question
+                    user_answer = question.get_option_string(int(value)) if value else "No answer provided"
+                    correct_answer = question.get_answer_string()
+                    if user_answer == correct_answer:
+                        score += 10
+                if key.endswith('tf'):
+                    question = Quiz_TF.query.filter_by(id=quiz_id).first()
+                    question_text = question.question
+                    user_answer = question.get_option_string(int(value)) if value else "No answer provided"
+                    correct_answer = question.get_answer_string()
+                    if user_answer == correct_answer:
+                        score += 10
+
+                # Check if the question was answered
+                if value == '':
+                    unanswered.append(question)
+      
+            # Add question_text, user_answer and correct_answer to the list.
+            # We are saving question_text, user_answer and correct_answer into this list, 
+            # so that quiz_result.html can retrive info from it without querying database.
+            quiz_list.append({"question_text": question_text, "user_answer": user_answer, "correct_answer": correct_answer})
+
+
+        # Display the score, correct answer and user's answers.   
+        return render_template('quiz_result.html', user=current_user, language=language, total=100, quiz_list=quiz_list, score=score)
+   
+    # If it's a GET request, display the quiz questions
+    return render_template('quiz_take.html', user=current_user, language=language, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf)
+
+        
+        
+
+
+    
+   
    
 
 

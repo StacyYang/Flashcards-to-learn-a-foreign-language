@@ -17,7 +17,7 @@ git clone <repo-url>
 ```
 
 ```bash
-pip install -r docs/requirements.txt
+pip install -r docs/expert_users/requirements.txt
 ```
 
 ## Running The App

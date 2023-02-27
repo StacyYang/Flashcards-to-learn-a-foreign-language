@@ -8,20 +8,22 @@
 <div class="container ">
 
   <h1>Take the Quiz</h1>
-  <form method="post" action="{{ url_for('auth.take_quiz')}}">
+  <form method="post" id="quiz-form" action="{{ url_for('auth.take_quiz')}}">
 
       <div class="quiz_type">Multiple-choice questions, choose one answer.</div>
       {% for quiz in quizzes_multi %}
         {% set question_number = loop.index %}
         <div class="quiz-option">
           <h3>No. {{question_number}}: {{ quiz.question }}</h3>
-          <input type="radio" id="answer-{{ quiz.id }}-1" name="answer-{{ quiz.id }}" value="1">
-            <label for="answer-{{ quiz.id }}-1">{{ quiz.option1 }}</label><br>
-            <input type="radio" id="answer-{{ quiz.id }}-2" name="answer-{{ quiz.id }}" value="2">
+          <!-- name="answer-{{quiz.id}}" should have different values for multiple & true/false, 
+            so that if the id(in database) for multi&tf are the same, the selected answer won't be unselected.-->
+          <input type="radio" id="answer-{{ quiz.id }}-1" name="answer-{{ quiz.id }}-multi" value="1"  >
+            <label for="answer-{{ quiz.id }}-1">{{ quiz.option1 }} </label><br>
+            <input type="radio" id="answer-{{ quiz.id }}-2" name="answer-{{ quiz.id }}-multi" value="2"  >
             <label for="answer-{{ quiz.id }}-2">{{ quiz.option2 }}</label><br>
-            <input type="radio" id="answer-{{ quiz.id }}-3" name="answer-{{ quiz.id }}" value="3">
+            <input type="radio" id="answer-{{ quiz.id }}-3" name="answer-{{ quiz.id }}-multi" value="3"  >
             <label for="answer-{{ quiz.id }}-3">{{ quiz.option3 }}</label><br>
-            <input type="radio" id="answer-{{ quiz.id }}-4" name="answer-{{ quiz.id }}" value="4">
+            <input type="radio" id="answer-{{ quiz.id }}-4" name="answer-{{ quiz.id }}-multi" value="4" >
             <label for="answer-{{ quiz.id }}-4">{{ quiz.option4 }}</label><br>
         </div>
       {% endfor %}
@@ -35,11 +37,11 @@
       <div class="quiz-option">
         <h3>No. {{question_number+5}}: {{ quiz.question }}</h3>
         <div>
-          <input type="radio" id="quiz-{{ quiz.id }}-true" name="answer-{{ quiz.id }}" value="1">
+          <input type="radio" id="quiz-{{ quiz.id }}-true" name="answer-{{ quiz.id }}-tf" value="1">
           <label for="quiz-{{ quiz.id }}-true">True</label>
         </div>
         <div>
-          <input type="radio" id="quiz-{{ quiz.id }}-false" name="answer-{{ quiz.id }}" value="2">
+          <input type="radio" id="quiz-{{ quiz.id }}-false" name="answer-{{ quiz.id }}-tf" value="2">
           <label for="quiz-{{ quiz.id }}-false">False</label>
         </div>
       </div>
@@ -51,6 +53,40 @@
   </form>
 
 </div>
+
+
+
+<script>
+  function validateForm() {
+    var unanswered = false;
+    var questions = document.querySelectorAll(".question-container");
+    for (var i = 0; i < questions.length; i++) {
+      var inputs = questions[i].querySelectorAll("input[type='radio']");
+      var answered = false;
+      for (var j = 0; j < inputs.length; j++) {
+        if (inputs[j].checked) {
+          answered = true;
+          break;
+        }
+      }
+      if (!answered) {
+        unanswered = true;
+        break;
+      }
+    }
+    if (unanswered) {
+      alert("Please answer all questions before submitting.");
+      return false;
+    }
+    return true;
+  }
+
+  document.querySelector("#quiz-form").addEventListener("submit", function(e) {
+    if (!validateForm()) {
+      e.preventDefault();
+    }
+  });
+</script>
 
 
 {% endblock %}

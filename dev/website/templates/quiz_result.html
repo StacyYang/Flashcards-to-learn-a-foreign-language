@@ -1,55 +1,33 @@
 {% extends "base.html" %}
 {% block title %}Quiz Result{% endblock %}
 
+
 {% block content %}
+<div class="container ">
 
-<div class="container">
+  <h1>Quiz Result</h1>
 
-    <h1>Quiz Results</h1>
-    <h3>Your Score: {{ score }} / {{ total }}</h3>
-    
-    <h2>Multiple-choice Questions</h2>
-    <ul>
-    {% for quiz in quizzes_multi %}
-      {% set question_number = loop.index %}
-      <li>
-        <p><strong>No. {{ question_number }}: {{ quiz.question }}</strong></p>
-        <p>Correct Answer: {{ quiz.get_answer_string() }}</p>
-        {% if answers.get(quiz.id) %}
-          {% if quiz.answer == answers.get(quiz.id) %}
-            <p>Your Answer: {{ quiz.get_option_string(answers.get(quiz.id)) }} (Correct)</p>
-          {% else %}
-            <p>Your Answer: {{ quiz.get_option_string(answers.get(quiz.id)) }} (Incorrect)</p>
-          {% endif %}
-        {% else %}
-          <p>Your Answer: No answer provided</p>
-        {% endif %}
-      </li>
-    {% endfor %}
-    </ul>
-    
-    <h2>True or False Questions</h2>
-    <ul>
-    {% for quiz in quizzes_tf %}
-      {% set question_number = loop.index + quizzes_multi|length %}
-      <li>
-        <p><strong>No. {{ question_number }}: {{ quiz.question }}</strong></p>
-        <p>Correct Answer: {{ quiz.get_answer_string() }}</p>
-        {% if answers.get(quiz.id) %}
-          {% if quiz.answer == answers.get(quiz.id) %}
-            <p>Your Answer: {{ quiz.get_option_string(answers.get(quiz.id)) }} (Correct)</p>
-          {% else %}
-            <p>Your Answer: {{ quiz.get_option_string(answers.get(quiz.id)) }} (Incorrect)</p>
-          {% endif %}
-        {% else %}
-          <p>Your Answer: No answer provided</p>
-        {% endif %}
-      </li>
-    {% endfor %}
-    </ul>
-  
+  <h2>Your Score: {{ score }} / 100 </h2>
+  <h3>Below are the questions you provided answers. </h3>
+
+  <div class="quiz_type">Multiple-choice questions, choose one answer.</div>
+  {% for quiz in quiz_list[:5] %}
+    <div class="quiz-option">
+      <h3>No. {{ loop.index }}: {{ quiz.question_text }}</h3>
+      <p><strong>Your Answer:</strong> {{ quiz.user_answer }}</p>
+      <p><strong>Correct Answer:</strong> {{ quiz.correct_answer }}</p>
+    </div>
+  {% endfor %}
+
+  <br>
+  <div class="quiz_type">True or False questions, choose one answer.</div>
+  {% for quiz in quiz_list[5:] %}
+    <div class="quiz-option">
+      <h3>No. {{ loop.index + 5 }}: {{ quiz.question_text}}</h3>
+      <p><strong>Your Answer:</strong> {{ quiz.user_answer }}</p>
+      <p><strong>Correct Answer:</strong> {{ quiz.correct_answer }}</p>
+    </div>
+  {% endfor %}
+
 </div>
-
-
-
 {% endblock %}
