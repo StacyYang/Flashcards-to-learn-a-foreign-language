@@ -49,19 +49,28 @@ class User(db.Model, UserMixin):
 # Multiple choices questions
 class Quiz_M(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    language = db.Column(db.String(200))
+    language = db.Column(db.String(20))
     question = db.Column(db.String(500))
     option1 = db.Column(db.String(200))
     option2 = db.Column(db.String(200))
     option3 = db.Column(db.String(200))
     option4 = db.Column(db.String(200))
-    answer = db.Column(db.String)
+    answer = db.Column(db.String(200))
 
     def __repr__(self):
         return f"<Quiz_M {self.id}: {self.question}? {self.answer}"
 
     def get_answer_string(self):
-        return self.answer
+        if self.answer == self.option1:
+            return self.option1
+        elif self.answer == self.option2:
+            return self.option2
+        elif self.answer == self.option3:
+            return self.option3
+        elif self.answer == self.option4:
+            return self.option4
+        else:
+            return "Invalid answer"
 
     def get_option_string(self, option):
         if option == 1:
@@ -80,15 +89,18 @@ class Quiz_M(db.Model):
 # True or false questions
 class Quiz_TF(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    language = db.Column(db.String(200))
+    language = db.Column(db.String(20))
     question = db.Column(db.String(500))
-    answer = db.Column(db.String)
+    answer = db.Column(db.String(50))
     
     def __repr__(self):
         return f"<Quiz_TF {self.id}: {self.question}? {self.answer}"
 
     def get_answer_string(self):
-        return self.answer
+        if self.answer:
+            return self.answer
+        else:
+            return "Error!"
 
     def get_option_string(self, option):
         if option == 1:
@@ -97,3 +109,14 @@ class Quiz_TF(db.Model):
             return "False"
         else:
             return "Invalid option"
+
+
+# Material
+class Material(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    language = db.Column(db.String(20))
+    title = db.Column(db.String(500))
+    content = db.Column(db.String(500))
+    
+    def __repr__(self):
+        return f"<Material {self.id}: {self.title}: {self.content}"
