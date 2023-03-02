@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}study mode{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <script>
+    function flip(id){
+      front = document.getElementById(id);
+      back = document.getElementById(id+'b');
+      if (front.getAttribute('active')!=null){
+        front.removeAttribute('active')
+        back.setAttribute('active','')
+      }else{
+        back.removeAttribute('active')
+        front.setAttribute('active','')
+      }
+
+    }
+  </script>
+  <div class="row mx-auto">
+  {% for i in range(cards|length) %}
+    <div class="col-lg-3 m-5">
+      <div class="study-card-area" onclick="flip('{{i}}')">
+        <div id="{{i}}" class="study-card study-card-front" active>
+          <h5>{{cards[i].title}}</h5>
+        </div>
+        <div id="{{i}}b" class="study-card study-card-back">
+          <h5>{{cards[i].content}}</h5>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  <div class="row mx-auto" style="position: relative;">
+    <div class="paper">
+      <div class="lines">
+        <div class="text" contenteditable spellcheck="false">
+          You can take note here! <br /><br />
+  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
