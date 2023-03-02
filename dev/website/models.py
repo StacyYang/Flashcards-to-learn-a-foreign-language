@@ -75,13 +75,15 @@ class Quiz_M(db.Model):
         else:
             return "Invalid option"
 
+
+
 # True or false questions
 class Quiz_TF(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     language = db.Column(db.String(200))
     question = db.Column(db.String(500))
     answer = db.Column(db.String)
-
+    
     def __repr__(self):
         return f"<Quiz_TF {self.id}: {self.question}? {self.answer}"
 
