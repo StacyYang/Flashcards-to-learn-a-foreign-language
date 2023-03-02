@@ -1,7 +1,7 @@
 # File to populate multiple-choice questions and true/false questions into database.
 # Each questions will be checked before populating to database, Only new questions will be populated to database.
 
-from .models import Quiz_M, Quiz_TF
+from .models import Quiz_M, Quiz_TF，Material
 from . import db
 
 
@@ -153,6 +153,34 @@ quizzes_TF = [
 
 ]
 
+materials = [
+    {'language': 'Chinese', 'title': '过程', 'content': 'process'}, 
+    {'language': 'Chinese', 'title': '增加', 'content': 'growth'}, 
+    {'language': 'Chinese', 'title': '工艺', 'content': 'technology'}, 
+    {'language': 'Chinese', 'title': '理论', 'content': 'theory'}, 
+    {'language': 'Chinese', 'title': '经济', 'content': 'economy'}, 
+    {'language': 'Chinese', 'title': '行为', 'content': 'behavior'}, 
+    {'language': 'Chinese', 'title': '账', 'content': 'account'}, 
+    {'language': 'Chinese', 'title': '经济', 'content': 'economic'}, 
+    {'language': 'Chinese', 'title': '单独', 'content': 'individual'}, 
+    {'language': 'Chinese', 'title': '产品', 'content': 'product'}, 
+    {'language': 'Chinese', 'title': '比', 'content': 'rate'}, 
+    {'language': 'Chinese', 'title': '创造', 'content': 'create'}, 
+    {'language': 'Chinese', 'title': '下降', 'content': 'decline'}, 
+    {'language': 'Chinese', 'title': '硬', 'content': 'hard'}, 
+    {'language': 'Chinese', 'title': '能力', 'content': 'ability'}, 
+    {'language': 'Chinese', 'title': '专业', 'content': 'professional'}, 
+    {'language': 'Chinese', 'title': '斑点', 'content': 'spot'}, 
+    {'language': 'Chinese', 'title': '倾向', 'content': 'tend'}, 
+    {'language': 'Chinese', 'title': '眼界', 'content': 'view'}, 
+    {'language': 'Chinese', 'title': '鼓吹', 'content': 'advocate'}, 
+    {'language': 'Chinese', 'title': '数量', 'content': 'amount'}, 
+    {'language': 'Chinese', 'title': '团体', 'content': 'community'}, 
+    {'language': 'Chinese', 'title': '关联', 'content': 'concern'}, 
+    {'language': 'Chinese', 'title': '环境', 'content': 'environment'}, 
+    {'language': 'Chinese', 'title': '因素', 'content': 'factor'}, 
+    {'language': 'Chinese', 'title': '智力', 'content': 'intelligence'}]
+
 
 for quiz_question in quizzes_M:
     # Check if a question with the same text already exists in the database
@@ -169,6 +197,12 @@ for quiz_question in quizzes_TF:
         new_question = Quiz_TF(question=quiz_question["question_text"], answer=quiz_question["answer"])
         db.session.add(new_question)
 
+for material in materials:
+    # Check if a material with the same title already exists in the database
+    existing_material = Material.query.filter_by(title=material["title"]).first()
+    if existing_material is None:
+        new_material = Material(title=material["title"], content=material["content"],language=quiz_question["language"])
+        db.session.add(new_material)
 
 # Commit the changes to the database
 db.session.commit()
