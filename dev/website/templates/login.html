@@ -39,22 +39,31 @@
 
                         <!--sign up-->
                         <form action="{{ url_for('auth.sign_up') }}" method="POST">
+
                             <div class="sign-up-form">
                                 <div class="group">
                                     <label for="username" class="label">Username</label>
-                                    <input id="username" name="username" type="text" class="input" placeholder="Create your Username">
+                                    <input id="username-input" name="username" type="text" class="input" placeholder="Create your Username">
+                                    <div id="username-constraint" class="constraint-message"></div>
                                 </div>
+                                
+
                                 <div class="group">
                                     <label for="password1" class="label">Password</label>
-                                    <input id="password1" name="password1" type="password" class="input" data-type="password" placeholder="Create your password">
+                                    <input id="password1-input" name="password1" type="password" class="input" data-type="password" placeholder="Create your password">
+                                    <div id="password1-constraint" class="constraint-message"></div>
                                 </div>
+
                                 <div class="group">
                                     <label for="password2" class="label">Confirm Password</label>
-                                    <input id="password2" name="password2" type="password" class="input" data-type="password" placeholder="Confirm your password" >
+                                    <input id="password2-input" name="password2" type="password" class="input" data-type="password" placeholder="Confirm your password" >
+                                    <div id="password2-constraint" class="constraint-message"></div>
                                 </div>
+
                                 <div class="group">
                                     <label for="email" class="label">Email Address</label>
-                                    <input id="email" name="email" type="email" class="input" placeholder="Enter your email address">
+                                    <input id="email-input" name="email" type="email" class="input" placeholder="Enter your email address">
+                                    <div id="email-constraint" class="constraint-message"></div>
                                 </div>
                                 <div class="group">
                                     <input type="submit" class="button" value="Sign Up">
@@ -72,6 +81,53 @@
     </div>
 </div>
 
+<script>
+
+    const usernameInput = document.getElementById("username-input");
+    const password1Input = document.getElementById("password1-input");
+    const password2Input = document.getElementById("password2-input");
+    const emailInput = document.getElementById("email-input");
+
+    const usernameConstraint = document.getElementById("username-constraint");
+    const password1Constraint = document.getElementById("password1-constraint");
+    const password2Constraint = document.getElementById("password2-constraint");
+    const emailConstraint = document.getElementById("email-constraint");
+
+    // "focus" --> show requirements when click on the input field
+    usernameInput.addEventListener("focus", () => {
+        usernameConstraint.textContent = "Username must be at least 2 characters";
+    });
+
+    // "blur" --> disappear requirements when click outside the input field
+    usernameInput.addEventListener("blur", () => {
+        usernameConstraint.textContent = "";
+    });
+
+    password1Input.addEventListener("focus", () => {
+        password1Constraint.textContent = "Password must be at least 7 characters";
+    });
+
+    password1Input.addEventListener("blur", () => {
+        password1Constraint.textContent = "";
+    });
+
+    password2Input.addEventListener("focus", () => {
+        password2Constraint.textContent = "Repeat password must be the same";
+    });
+
+    password2Input.addEventListener("blur", () => {
+        password2Constraint.textContent = "";
+    });
+
+    emailInput.addEventListener("focus", () => {
+        emailConstraint.textContent = "Email must be a valid email address, and greater than 3 characters.";
+    });
+
+    emailInput.addEventListener("blur", () => {
+        emailConstraint.textContent = "";
+    });
+
+  </script>
 
 
 {% endblock %}

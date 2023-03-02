@@ -179,6 +179,14 @@ color: #b3b3b3;
 
 
 
+.constraint-message {
+	color: red;
+	font-style: italic;
+	font-size: 0.8em;
+}
+
+
+
 /* Style the radio buttons and labels for quiz_take.html*/
 
 
