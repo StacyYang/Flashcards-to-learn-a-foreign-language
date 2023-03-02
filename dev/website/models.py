@@ -65,7 +65,16 @@ class Quiz_M(db.Model):
 
     def get_option_string(self, option):
         if option == 1:
-	@@ -80,20 +89,34 @@ def get_option_string(self, option):
+            return self.option1
+        elif option == 2:
+            return self.option2
+        elif option == 3:
+            return self.option3
+        elif option == 4:
+            return self.option4
+        else:
+            return "Invalid option"
+
 # True or false questions
 class Quiz_TF(db.Model):
     id = db.Column(db.Integer, primary_key=True)
