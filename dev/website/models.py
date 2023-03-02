@@ -90,13 +90,9 @@ class Quiz_TF(db.Model):
 
     def get_option_string(self, option):
         if option == 1:
-            return self.option1
+            return "True"
         elif option == 2:
-            return self.option2
-        elif option == 3:
-            return self.option3
-        elif option == 4:
-            return self.option4
+            return "False"
         else:
             return "Invalid option"
 
