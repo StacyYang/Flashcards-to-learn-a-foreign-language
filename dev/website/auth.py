@@ -84,9 +84,9 @@ def choose_lang_mode():
 
         if mode == 'quiz':
             # Also need to pass quizzes_multi and quizzes_tf here
-            quizzes_multi= Quiz_M.query.filter_by(language=language).order_by(func.random()).limit(5).all()
-            quizzes_tf= Quiz_TF.query.filter_by(language=language).order_by(func.random()).limit(5).all()
-            return redirect(url_for('auth.take_quiz',  user=current_user, language=language, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf))
+            #quizzes_multi= Quiz_M.query.filter_by(language=language).order_by(func.random()).limit(5).all()
+            #quizzes_tf= Quiz_TF.query.filter_by(language=language).order_by(func.random()).limit(5).all()
+            return redirect(url_for('auth.take_quiz',  user=current_user, language=language))
 
         elif mode == 'study':
             #####################auth.study
