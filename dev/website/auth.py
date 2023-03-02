@@ -45,13 +45,13 @@ def sign_up():
         if user:
             flash('Username already exists.', category='error')
         elif len(username) < 2:
-            flash('Username must be greater than 1 charachter.', category='error')
+            flash('Username must be greater than 1 character.', category='error')
         elif password1 != password2:
             flash('Password don\'t match.', category='error')
         elif len(password1) < 7:
-            flash('Password must be at least 7 charachters.', category='error')
+            flash('Password must be at least 7 characters.', category='error')
         elif len(email) < 4:
-            flash('Email must be greater than 3 charachters.', category='error')
+            flash('Email must be greater than 3 characters.', category='error')
         else:
             # add user to database
             new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'))
