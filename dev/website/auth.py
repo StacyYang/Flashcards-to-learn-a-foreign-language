@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from .models import User, Quiz_M, Quiz_TF
+from .models import User, Quiz_M, Quiz_TF, Material
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ## means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.sql import func
+from random import shuffle
 
 
 
@@ -95,6 +96,20 @@ def choose_lang_mode():
 
 
 
+
+@auth.route('/study', methods=['GET', 'POST'])
+def study():
+    # Get the language from the URL parameter
+    language = request.args.get('language', 'Chinese')
+
+    # Select 9 random Material from the database
+    cards = Material.query.filter_by(language=language).order_by(func.random()).limit(9).all()
+    shuffle(cards)
+    return render_template('study.html', user=current_user,cards=cards, language=language)
+
+
+
+
 @auth.route('/quiz_take', methods=['GET', 'POST'])
 @login_required
 def take_quiz():
@@ -148,6 +163,9 @@ def take_quiz():
    
     # If it's a GET request, display the quiz questions
     return render_template('quiz_take.html', user=current_user, language=language, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf)
+
+
+   
 
         
         

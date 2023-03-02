@@ -97,3 +97,14 @@ class Quiz_TF(db.Model):
             return "False"
         else:
             return "Invalid option"
+
+
+# Material
+class Material(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    language = db.Column(db.String(20))
+    title = db.Column(db.String(500))
+    content = db.Column(db.String(500))
+    
+    def __repr__(self):
+        return f"<Material {self.id}: {self.title}: {self.content}"
