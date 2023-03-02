@@ -1,7 +1,7 @@
 # File to populate multiple-choice questions and true/false questions into database.
 # Each questions will be checked before populating to database, Only new questions will be populated to database.
 
-from .models import Quiz_M, Quiz_TF，Material
+from .models import Quiz_M, Quiz_TF, Material
 from . import db
 
 
