@@ -4,6 +4,12 @@
 2. Users need to register their accounts, once login in, there are two modes:
     Study mode: Users study using flashcards.
     Quize mode: User score, quiz time will be recorded.
+    
+## Features: 
+1. **User Authentication:** Allow users to create an account if they do not already have one. Login requires users to provide their username and password before they can have access to certain features or information of our website. And logout after they finish studying.
+2. **Learn by using Flashcards:** Allow users to learn a new language, including its vocabulary, grammar, and cultural knowledge using flashcards. 
+3. **Notes Creation:** Allow users to wirte notes based on their needs.
+4. **Take quiz:**  Allow users to take quizzes based on their desired language. The system tracks users' scores and dates of taking the quiz, and then displays them on a scoreboard.
 
 ## Technologies involved:
 1. **Frontend:** HTML, CSS, JavaScript
