@@ -27,6 +27,7 @@ Running the app
 python main.py
 ```
 Go to http://127.0.0.1:5000
+
 Then you will be taken to our home page and you can start interacting with the product
 
 ## How to check weekly progress of product
