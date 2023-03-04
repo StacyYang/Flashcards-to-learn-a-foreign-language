@@ -10,7 +10,7 @@
 2. **Backend:** Flask/Jinja, Python, SQLite for Database
 
 ## Setup & Install:
-Make sure you have the latest version of Python installed.
+Make sure you have the latest version of Python installed
 
 ```bash
 git clone <repo-url>
@@ -20,12 +20,20 @@ git clone <repo-url>
 pip install -r docs/expert_users/requirements.txt
 ```
 
-## Running The App
-
+## How to check status of product
+After building the product
+Running the app
 ```bash
 python main.py
 ```
+Go to http://127.0.0.1:5000
+Then you will be taken to our home page and you can start interacting with the product
 
-## Viewing The App
+## How to check weekly progress of product
+Navigate to commit history https://github.com/StacyYang/Flashcards-to-learn-a-foreign-language/commits/main
 
-Go to `http://127.0.0.1:5000`
+### See code changes
+Click on the commit id will see code changes
+
+### View past status
+Click the <> button on the commit history page
