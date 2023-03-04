@@ -14,11 +14,12 @@
 ## Github: https://github.com/StacyYang/Flashcards-to-learn-a-foreign-language 
 
 ## Features: 
-1. User Authentication and Account Management
-2.Learn by using Flashcards
-Notes Creation
-Take quiz
-Scoreboard
+1. User Authentication: Allow users to create an account if they do not already have one. Login requires users to provide their username and password before they can have access to certain features or information of our website. And logout after they finish studying.
+2. Learn by using Flashcards: Allow users to learn a new language, including its vocabulary, grammar, and cultural knowledge using flashcards. 
+3. Notes Creation: Allow users to add notes based on their needs.
+4. Take quiz:  Allow users to take quizzes based on their desired language. The system tracks users' scores and dates of taking the quiz, and then displays them on a scoreboard.
+5. Scoreboard: Displays users' scores on quizzes. Users can view their own scores as well as the whole ranking scoreboard.
+
 
 ## Setup & Install:
 Make sure you have the latest version of Python installed.
