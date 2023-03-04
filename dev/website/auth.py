@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
-from .models import User, Quiz_M, Quiz_TF, Material
+from .models import User, Quiz_M, Quiz_TF, Material, Score
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ## means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.sql import func
 from random import shuffle
+from datetime import datetime
 
 
 
@@ -89,7 +90,6 @@ def choose_lang_mode():
             return redirect(url_for('auth.take_quiz',  user=current_user, language=language))
 
         elif mode == 'study':
-            #####################auth.study
             return redirect(url_for('auth.study', language=language, user=current_user))
     
     return render_template("choose_lang_mode.html", user=current_user)
@@ -148,10 +148,6 @@ def take_quiz():
                     if user_answer == correct_answer:
                         score += 10
 
-                # Check if the question was answered
-                if value == '':
-                    unanswered.append(question)
-      
             # Add question_text, user_answer and correct_answer to the list.
             # We are saving question_text, user_answer and correct_answer into this list, 
             # so that quiz_result.html can retrive info from it without querying database.
@@ -159,7 +155,15 @@ def take_quiz():
 
 
         # Display the score, correct answer and user's answers.   
-        return render_template('quiz_result.html', user=current_user, language=language, total=100, quiz_list=quiz_list, score=score)
+        if len(user_answers) == 0:
+            flash('You did not answer any questions, please take the quiz')
+            return redirect(url_for('auth.take_quiz', user=current_user, language=language))
+        else:
+            # Save user score and date to database
+            quiz_score = Score(user_id=current_user.id, score=score, date=datetime.now())
+            db.session.add(quiz_score)
+            db.session.commit()
+            return render_template('quiz_result.html', user=current_user, language=language, total=100, quiz_list=quiz_list, score=score)
    
     # If it's a GET request, display the quiz questions
     return render_template('quiz_take.html', user=current_user, language=language, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf)

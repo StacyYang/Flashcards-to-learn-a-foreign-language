@@ -3,31 +3,42 @@
 
 
 {% block content %}
-<div class="container ">
+<div class="quiz-result">
+  <div class="container ">
 
-  <h1>Quiz Result</h1>
+    <h1><strong>Quiz Result</strong></h1>
 
-  <h2>Your Score: {{ score }} / 100 </h2>
-  <h3>Below are the questions you provided answers. </h3>
+    <h2><strong>Your Score: {{ score }} / 100 </strong></h2>
+    <h3>Below are the questions you provided answers. </h3>
 
-  <div class="quiz_type">Multiple-choice questions, choose one answer.</div>
-  {% for quiz in quiz_list[:5] %}
-    <div class="quiz-option">
-      <h3>No. {{ loop.index }}: {{ quiz.question_text }}</h3>
-      <p><strong>Your Answer:</strong> {{ quiz.user_answer }}</p>
-      <p><strong>Correct Answer:</strong> {{ quiz.correct_answer }}</p>
-    </div>
-  {% endfor %}
+    <div class="quiz_type">Multiple-choice questions, choose one answer.</div>
+    {% for quiz in quiz_list[:5] %}
+      <div class="answers">
+        <h3>No. {{ loop.index }}: {{ quiz.question_text }}</h3>
+        {% if quiz.user_answer == quiz.correct_answer %}
+          <p>Your Answer: {{ quiz.user_answer }} <span style="color: green">&#10004;</span></p>
+        {% else %}
+          <p>Your Answer: {{ quiz.user_answer }} <span style="color: red">&#10006;</span></p>
+        {% endif %}
+        <p>Correct Answer:   {{ quiz.correct_answer }}</p>
+      </div>
+    {% endfor %}
 
-  <br>
-  <div class="quiz_type">True or False questions, choose one answer.</div>
-  {% for quiz in quiz_list[5:] %}
-    <div class="quiz-option">
-      <h3>No. {{ loop.index + 5 }}: {{ quiz.question_text}}</h3>
-      <p><strong>Your Answer:</strong> {{ quiz.user_answer }}</p>
-      <p><strong>Correct Answer:</strong> {{ quiz.correct_answer }}</p>
-    </div>
-  {% endfor %}
+    <br>
+    <div class="quiz_type">True or False questions, choose one answer.</div>
+    {% for quiz in quiz_list[5:] %}
+      <div class="answers">
+        <h3>No. {{ loop.index + 5 }}: {{ quiz.question_text}}</h3>
+        {% if quiz.user_answer == quiz.correct_answer %}
+          <p>Your Answer: {{ quiz.user_answer }} <span style="color: green">&#10004;</span></p>
+        {% else %}
+          <p>Your Answer: {{ quiz.user_answer }} <span style="color: red">&#10006;</span></p>
+        {% endif %}
+        <p>Correct Answer:   {{ quiz.correct_answer }}</p>
+      </div>
+    {% endfor %}
 
+  </div>
+  <br><br><br><br>
 </div>
 {% endblock %}
