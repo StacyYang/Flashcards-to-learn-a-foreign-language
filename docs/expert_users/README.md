@@ -15,6 +15,14 @@
 1. **Frontend:** HTML, CSS, JavaScript
 2. **Backend:** Flask/Jinja, Python, SQLite for Database
 
+## Test user:
+<li>username: tester
+<li>password: 1234567
+
+## Administer account:
+<li>username: administer
+<li>password: 1234567
+
 ## Setup & Install:
 Make sure you have the latest version of Python installed
 
