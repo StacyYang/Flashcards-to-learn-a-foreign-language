@@ -42,7 +42,7 @@ pip install -r docs/expert_users/requirements.txt
 After building the product
 Running the app
 ```bash
-python main.py
+python dev/main.py
 ```
 Go to http://127.0.0.1:5000
 
