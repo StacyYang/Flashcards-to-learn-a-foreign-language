@@ -30,6 +30,13 @@ git clone <repo-url>
 ```bash
 pip install -r docs/expert_users/requirements.txt
 ```
+## Test user:
+username: tester
+password: 1234567
+
+## Administer account:
+username: administer
+password: 1234567
 
 ## How to check status of product
 After building the product
