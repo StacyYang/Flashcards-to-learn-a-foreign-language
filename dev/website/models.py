@@ -27,6 +27,16 @@ class Score(db.Model):
         return f'<Note {self.score}>'
 
 
+# Tester user
+# username: tester
+# email: test@gmail.com 
+# password: 1234567
+
+# Administer
+# username: administer
+# email: manage@gmail.com 
+# password: 1234567
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,13 +48,7 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'<Note {self.username}>'
-
-
-# Tester user
-# username: tester
-# email: test@gmail.com 
-# password: 1234567
-
+    
 
 # Multiple choices questions
 class Quiz_M(db.Model):

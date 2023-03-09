@@ -36,6 +36,9 @@
           {% if user.is_authenticated %}
           <img src="{{ url_for('static', filename='pics/flashy.jpg') }}" alt="Logo" width="50" height="50"  class="rounded-circle" >
           <a class="nav-item nav-link" style="color: rgb(237, 145, 34);">Welcome, {{ user.username }}!</a>
+              {% if user.is_authenticated and user.username == "administer" %}
+                <a class="nav-item nav-link" id="administer" href="/admin_dashboard" style="color: rgb(237, 85, 34);">&nbsp;&nbsp;&nbsp;&nbsp; Manager Dashboard &nbsp;&nbsp;&nbsp;&nbsp;</a>
+              {% endif %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="choice" href="/choose_lang_mode">Choose language and mode</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>

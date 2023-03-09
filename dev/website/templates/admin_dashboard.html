@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Administer Login{% endblock %}
+
+
+{% block content %}
+<div class="dashboard" > 
+  <div class="container">
+    <div class="dash-content">
+     
+        <div class="display-1 text-center my-5 py-5 admin_header">Admin Dashboard</div>
+          <!--tabs-->
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link fs-4 active" data-bs-toggle="tab" href="#user-accounts">User Accounts</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fs-4" data-bs-toggle="tab" href="#multiple-choice-quiz">Multiple Choice Quiz</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fs-4" data-bs-toggle="tab" href="#true-or-false-quiz">True or False Quiz</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fs-4" data-bs-toggle="tab" href="#materials">Materials</a>
+            </li>
+          </ul>
+          
+
+          <div class="tab-content" >
+            <!--user accounts-->
+            <div class="tab-pane fade show active" id="user-accounts" >
+              <table class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for user in users %}
+                    {% if user.username != "administer" %}
+                      <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                          <form action="{{ url_for('auth.admin_delete_user', user_id=user.id) }}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Delete User</button>
+                          </form>
+                        </td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+
+
+            <!--Multiple choice-->
+            <div class="tab-pane fade" id="multiple-choice-quiz">
+              <table class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>Question text</th>
+                    <th>Answer</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for question in quiz_m %}
+                      <tr>
+                        <td>{{ question.question }}</td>
+                        <td>{{ question.answer }}</td>
+                        <td>
+                          <!--
+                          <form action="{{ url_for('auth.admin_delete_user', user_id=user.id) }}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Delete Question</button>
+                          </form>-->
+                        </td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+
+            </div>
+
+
+
+            <div class="tab-pane fade" id="true-or-false-quiz">
+              <!-- code for true or false quiz tab -->
+            </div>
+            <div class="tab-pane fade" id="materials">
+              <!-- code for materials tab -->
+            </div>
+          </div>
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

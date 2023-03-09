@@ -16,7 +16,7 @@ body{
 }
 
 .login-box{
-	width:100%;
+	width:120%;
 	margin:auto;
 	max-width:525px;
 	min-height:670px;
@@ -31,7 +31,9 @@ body{
 	padding:90px 70px 50px 70px;
 	background:rgba(44, 44, 47, 0.9);
 }
+
 .login-snip .login,
+.login-snip .admin_login,
 .login-snip .sign-up-form{
 	top:0;
 	left:0;
@@ -42,16 +44,20 @@ body{
 	backface-visibility:hidden;
 	transition:all .4s linear;
 }
+
 .login-snip .sign-in,
 .login-snip .sign-up,
+.login-snip .admin-login,
 .login-space .group .check{
 	display:none;
 }
+
 .login-snip .tab,
 .login-space .group .label,
 .login-space .group .button{
 	text-transform:uppercase;
 }
+
 .login-snip .tab{
 	font-size:22px;
 	margin-right:15px;
@@ -60,11 +66,14 @@ body{
 	display:inline-block;
 	border-bottom:2px solid transparent;
 }
+
 .login-snip .sign-in:checked + .tab,
+.login-snip .admin-login:checked + .tab,
 .login-snip .sign-up:checked + .tab{
 	color:#fff;
 	border-color:#1161ee;
 }
+
 .login-space{
 	min-height:345px;
 	position:relative;
@@ -139,10 +148,14 @@ body{
 .login-space .group .check:checked + label .icon:after{
 	transform:scale(1) rotate(-45deg);
 }
-.login-snip .sign-in:checked + .tab + .sign-up + .tab + .login-space .login{
+
+.login-snip .sign-in:checked + .tab + .sign-up + .tab + .admin-login + .tab + .login-space .login{
 	transform:rotate(0);
 }
-.login-snip .sign-up:checked + .tab + .login-space .sign-up-form{
+.login-snip .sign-up:checked + .tab +  .admin-login + .tab +.login-space .sign-up-form{
+	transform:rotate(0);
+}
+.login-snip .admin-login:checked + .tab + .login-space .admin_login{
 	transform:rotate(0);
 }
 
@@ -305,3 +318,49 @@ a{color:inherit;text-decoration:none}
 	width: 100%;
 	height: 200px;
 }
+
+
+/* Style  for dashboard.html*/
+.dashboard{
+	
+    background-blend-mode: multiply;
+	background-image: url(../static/pics/quiz_take_bg.jpg);
+	background-color: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.dash-content {
+	padding-bottom: 400px; /* adjust the value as needed */
+}
+
+
+.admin_header{
+	text-shadow:
+    2px 2px 0 #000,
+    3px 3px 0 #000,
+    4px 4px 0 #000,
+    5px 5px 0 #000,
+    6px 6px 0 #000,
+    7px 7px 0 #000,
+    8px 8px 0 #000;
+}
+
+table.table-striped tr:nth-of-type(even) {
+	background-color: #ffffff;
+}
+table.table-striped th, 
+table.table-striped td {
+	border: 2px solid #e0e3e6;
+	padding: 8px;
+	font-size: 20px;
+	text-align: center;
+	vertical-align: text-bottom;
+}
+table.table-striped th {
+	background-color: #008cff;
+	color: #fff;
+}
+

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import User, Quiz_M, Quiz_TF, Material, Score
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ## means from __init__.py import db
@@ -6,6 +6,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.sql import func
 from random import shuffle
 from datetime import datetime
+from flask import abort
 
 
 
@@ -84,16 +85,12 @@ def choose_lang_mode():
         mode = request.form['mode']
 
         if mode == 'quiz':
-            # Also need to pass quizzes_multi and quizzes_tf here
-            #quizzes_multi= Quiz_M.query.filter_by(language=language).order_by(func.random()).limit(5).all()
-            #quizzes_tf= Quiz_TF.query.filter_by(language=language).order_by(func.random()).limit(5).all()
             return redirect(url_for('auth.take_quiz',  user=current_user, language=language))
 
         elif mode == 'study':
             return redirect(url_for('auth.study', language=language, user=current_user))
     
     return render_template("choose_lang_mode.html", user=current_user)
-
 
 
 
@@ -171,10 +168,51 @@ def take_quiz():
 
    
 
-        
-        
+# Administer related routes
+@auth.route('/administer_login', methods=['GET', 'POST'])
+def administer_login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(username=username).first()
+        if user:
+            if check_password_hash(user.password, password):
+                flash('Logged in successfully as the administer!', category='success')
+                login_user(user, remember=True)
+                return redirect(url_for('auth.admin_dashboard'))
+            else:
+                flash('Incorrect password, try again.', category='error')
+        else:
+            flash('This is the administer login.', category='error')
+
+    return render_template("login.html", user=current_user)
+       
+
+@auth.route('/admin_dashboard', methods=['GET', 'POST'])
+@login_required
+def admin_dashboard():
+    if current_user.username == 'administer':
+        users = User.query.all()
+        quiz_m = Quiz_M.query.all()
+        return render_template('admin_dashboard.html', users=users, user=current_user, quiz_m=quiz_m)
+    else:
+        abort(403)
+    
+    
 
 
+@auth.route('/admin/users/delete/<int:user_id>', methods=['POST'])
+@login_required
+def admin_delete_user(user_id):
+    if current_user.username == 'administer'  and request.method == 'POST' :
+        user = User.query.get(user_id)
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+        return redirect(url_for('auth.admin_dashboard'))
+    else:
+        abort(403)
     
    
    
