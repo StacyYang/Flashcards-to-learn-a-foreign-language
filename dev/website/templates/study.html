@@ -5,34 +5,9 @@
 
 <div class="container">
   <script>
-    var pageCount = 1
-    var pageMax = {{(cards[1]|length)//4}}
-    var chapterIndex = 1
-
-    // it can be improve by adding some anim
-    function changePageUp(){
-      if (pageCount == 1) return
-      document.getElementById("c-"+chapterIndex+"-page-"+pageCount).removeAttribute('active')
-      pageCount--
-      document.getElementById("c-"+chapterIndex+"-page-"+pageCount).setAttribute('active','')
-      changePageCount()
-    }
-    function changePageDown(){
-      if (pageCount == pageMax) return
-      document.getElementById("c-"+chapterIndex+"-page-"+pageCount).removeAttribute('active')
-      pageCount++
-      document.getElementById("c-"+chapterIndex+"-page-"+pageCount).setAttribute('active','')
-      changePageCount()
-    }
-    function changePageCount(){
-      temp = document.getElementById("page-count").innerText.split('/')
-      temp[0] = pageCount
-      document.getElementById("page-count").innerText = temp.join("/")
-    }
-
     function flip(id){
-      front = document.getElementById(id)
-      back = document.getElementById(id+'b')
+      front = document.getElementById(id);
+      back = document.getElementById(id+'b');
       if (front.getAttribute('active')!=null){
         front.removeAttribute('active')
         back.setAttribute('active','')
@@ -40,172 +15,33 @@
         back.removeAttribute('active')
         front.setAttribute('active','')
       }
+
     }
-
-    function changeChapter(id){
-      document.getElementById("cards-chapter-"+chapterIndex).removeAttribute('active')
-      chapterIndex = id
-      document.getElementById("cards-chapter-"+chapterIndex).setAttribute('active','')
-    }
-    
-    
-    function insertAfter(newElement,targetElement){
-      var parent = targetElement.parentNode;
-      if(parent.lastChild == targetElement){
-      parent.appendChid(newElement);
-      }else{
-      parent.insertBefore(newElement,targetElement.nextSibling);
-      }
-    }
-
-    function addNote(note){
-      note = note.parentElement.parentElement.parentElement.parentElement.parentElement
-      note.setAttribute('class',note.getAttribute('class')+" delete-note")
-      note_content = note.getElementsByTagName('input')[0].value
-      if (note_content=="")
-        note_content = "New Note"
-
-      new_note_id = $.ajax({url:"/addnote/"+note_content,async:false}).responseText
-
-      setTimeout(function() {
-				note.remove()
-        node = '<div id="note-'+new_note_id+'" class="col-3 mb-3 add-note-edit"><div class="note-card"><div class="note-card-area"><div class="row note-button"><button class="btn btn-primary col-4 ms-auto" onclick="updateNoteEdit(\'note-'+new_note_id+'\')">Edit</button></div><p class="mt-2">Add recently</p><div class="row note-content"><p>'+note_content+'</p></div></div></div></div>'
-        node = document.createRange().createContextualFragment(node);
-        anchor = document.getElementById("anchor-insert-note")
-        insertAfter(node,anchor)
-			},1000);
-      
-    }
-
-    function addNoteEdit(){     
-      node = '<div class="row mx-auto mt-3 add-note-edit" style="position: relative;"><div class="col"><div class="note-card"><div class="note-card-area"><div class="row note-button"><button class="btn btn-info col-1" onclick="deleteAddNote(this)">Delete</button></div><div class="row note-content"><input placeholder="Edit here" value=""></div><div class="row note-button"><button class="btn btn-warning col-1" onclick="addNote(this)">Finish</button></div></div></div></div></div>'
-      node = document.createRange().createContextualFragment(node);
-      anchor = document.getElementById("anchor-insert-add-note-edit")
-      insertAfter(node,anchor)
-    }
-
-    function deleteAddNote(note,id){
-      note = note.parentElement.parentElement.parentElement.parentElement.parentElement
-      note.setAttribute('class',note.getAttribute('class')+" delete-note")
-      setInterval(function() {
-				note.remove()
-			},1000);
-      if (id == undefined) return;
-      else{
-        deleteNote(id)
-      }
-        
-    }
-
-    function deleteNote(id){
-      note = document.getElementById(id)
-      res = $.ajax({url:"/delete_note/"+id,async:false}).responseText
-      if (res=="success"){
-        note.setAttribute('class',note.getAttribute('class')+" delete-note")
-        setInterval(function() {
-          note.remove()
-        },1000);
-      }        
-      
-    }
-    function updateNoteEdit(id,data){
-      content = 
-      node = '<div id="add-note-edit" class="row mx-auto mt-3 add-note-edit" style="position: relative;"><div id="anchor-insert-note" hidden></div><div class="col"><div class="note-card"><div class="note-card-area"><div class="row note-button"><button class="btn btn-info col-1" onclick="deleteAddNote(this,\''+id+'\')">Delete</button></div><div class="row note-content"><input placeholder="Edit here" value="'+data+'"></div><div class="row note-button"><button class="btn btn-warning col-1" onclick="updateNote(this,\''+id+'\')">Finish</button></div></div></div></div></div>'
-      node = document.createRange().createContextualFragment(node);
-      anchor = document.getElementById("anchor-insert-add-note-edit")
-      insertAfter(node,anchor)
-    }
-    function updateNote(note,id){
-
-      note = note.parentElement.parentElement.parentElement.parentElement.parentElement
-      note.setAttribute('class',note.getAttribute('class')+" delete-note")
-      note_content = note.getElementsByTagName('input')[0].value
-      if (note_content=="")
-        note_content = "New Note"
-
-      res = $.ajax({url:"/update_note/"+id+"/"+note_content,async:false}).responseText
-      if (res=="success"){
-        note.remove()
-        document.getElementById(id).getElementsByClassName("note-content")[0].getElementsByTagName("p")[0].innerHTML = note_content
-      }      
-    }
-
   </script>
-  <div class="row mx-auto mt-1 mb-3">
-    <!-- chapter area -->
-    <div class="chapter_selecters">
-      <h1>Chapter</h1>
-    {% for i in range(1,(cards|length)+1) %}
-      <input id="chapter-{{i}}" type="radio" name="chapter" {% if i==1 %}checked{% endif %}>
-      <label class="col-lg-2 me-3" for="chapter-{{i}}" onclick="changeChapter('{{i}}')">{{i}}</label>
-    {% endfor %}
-    </div>
-  </div>
-  <div class="row mx-auto mb-5">
-  <!-- card area -->
-  {% for i in range(1,(cards|length)+1) %}
-    <div id="cards-chapter-{{i}}" class="row mx-auto cards-chapter" {% if i==1 %}active{% endif %}>
-      <div style="display:absolute">
-    {% for j in range(cards[i]|length) %}
-      {% if j % 4 ==0 %}
-      <div id="c-{{i}}-page-{{j//4+1}}" class="row mx-auto cards-page" {% if j==0 %}active{% endif %}>
-      {% endif %}
-        <!-- 2 cards in one line -->
-        {% if j % 2 ==0 %}
-        <div class="row mx-auto mb-3">
-        {% endif %}
-          <div class="col-lg-4 mx-auto">
-            <div class="study-card-area" onclick="flip('{{i*(cards[i]|length)+j}}')">
-              <div id="{{i*(cards[i]|length)+j}}" class="study-card study-card-front" active>
-                <h6>{{j+1}}/{{cards[i]|length}}</h6>
-                <h5>{{cards[i][j].title}}</h5>
-              </div>
-              <div id="{{i*(cards[i]|length)+j}}b" class="study-card study-card-back">
-                <h5>{{cards[i][j].content}}</h5>
-              </div>
-            </div>
-          </div>
-        {% if j % 2 ==1 %}
+  <div class="row mx-auto">
+  {% for i in range(cards|length) %}
+    <div class="col-lg-3 m-5">
+      <div class="study-card-area" onclick="flip('{{i}}')">
+        <div id="{{i}}" class="study-card study-card-front" active>
+          <h5>{{cards[i].title}}</h5>
         </div>
-        {% endif %}
-      {% if j % 4 ==3 %}
+        <div id="{{i}}b" class="study-card study-card-back">
+          <h5>{{cards[i].content}}</h5>
+        </div>
       </div>
-      {% endif %}
-    {% endfor %}
-    </div>
     </div>
   {% endfor %}
   </div>
-  <div class="row mx-auto mb-5">
-    <div class="col-lg-3 row mx-auto">
-      <div class="col-lg-1 mx-auto i-arrow-l" onclick="changePageUp()"></div>
-      <div id="page-count"class="col-lg-1 mx-auto" style="justify-content: center;display: flex;">1/{{(cards[1]|length)//4}}</div>
-      <div class="col-lg-1 mx-auto i-arrow-r" onclick="changePageDown()"></div>
-    </div>
-  </div>
-  <br/>
-  <div class="row mx-auto note-title" style="position: relative;">
-    <h1>Add Note</h1>
-  </div>
-  <div class="row mx-auto" style="position: relative; justify-content: center">
-    <button class="btn btn-primary col-1" onclick="addNoteEdit()">add Note</button>
-  </div>
-  <div id="anchor-insert-add-note-edit" hidden></div>
-  <div id="anchor-insert-update-note-edit" hidden></div>
-
-  <div class="row mx-auto mt-3 " style="position: relative;">
-    <div id="anchor-insert-note" hidden></div>
-    {% for i in range(notes|length) %}
-      <div id="note-{{notes[i].id}}" class="col-3 mb-3">
-        <div class="note-card">
-          <div class="note-card-area">
-            <div class="row note-button"><button class="btn btn-primary col-4 ms-auto" onclick="updateNoteEdit('note-{{notes[i].id}}','{{notes[i].data}}')">Edit</button></div>
-            <p class="mt-2">{{notes[i].date}}</p>
-            <div class="row note-content"><p>{{notes[i].data}}</p></div>
-          </div>
+  <div class="row mx-auto" style="position: relative;">
+    <div class="paper">
+      <div class="lines">
+        <div class="text" contenteditable spellcheck="false">
+          You can take note here! <br /><br />
+  
         </div>
       </div>
-    {% endfor %}
+    </div>
   </div>
+  <br><br><br><br><br><br>
 </div>
 {% endblock %}
