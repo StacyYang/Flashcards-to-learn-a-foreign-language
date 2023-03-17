@@ -118,6 +118,7 @@ def take_quiz():
     quizzes_multi= Quiz_M.query.filter_by(language=language).order_by(func.random()).limit(5).all()
     quizzes_tf= Quiz_TF.query.filter_by(language=language).order_by(func.random()).limit(5).all()
 
+    total = 10 * len(quizzes_multi+quizzes_tf)
 
     if request.method == 'POST':
         # Initialize the a list of dictionaries. 
@@ -160,7 +161,7 @@ def take_quiz():
             quiz_score = Score(user_id=current_user.id, score=score, date=datetime.now())
             db.session.add(quiz_score)
             db.session.commit()
-            return render_template('quiz_result.html', user=current_user, language=language, total=100, quiz_list=quiz_list, score=score)
+            return render_template('quiz_result.html', user=current_user, language=language, quiz_list=quiz_list, score=score, total=total)
    
     # If it's a GET request, display the quiz questions
     return render_template('quiz_take.html', user=current_user, language=language, quizzes_multi=quizzes_multi, quizzes_tf=quizzes_tf)
@@ -195,7 +196,9 @@ def admin_dashboard():
     if current_user.username == 'administer':
         users = User.query.all()
         quiz_m = Quiz_M.query.all()
-        return render_template('admin_dashboard.html', users=users, user=current_user, quiz_m=quiz_m)
+        quiz_tf = Quiz_TF.query.all()
+        flashcards = Material.query.all()
+        return render_template('admin_dashboard.html', users=users, user=current_user, quiz_m=quiz_m, quiz_tf=quiz_tf, flashcards=flashcards)
     else:
         abort(403)
     

@@ -20,7 +20,7 @@
               <a class="nav-link fs-4" data-bs-toggle="tab" href="#true-or-false-quiz">True or False Quiz</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-4" data-bs-toggle="tab" href="#materials">Materials</a>
+              <a class="nav-link fs-4" data-bs-toggle="tab" href="#flashcards">Flashcards</a>
             </li>
           </ul>
           
@@ -85,16 +85,64 @@
               </table>
             </div>
 
-            </div>
-
-
-
+        
+            <!--True/False choice-->
             <div class="tab-pane fade" id="true-or-false-quiz">
-              <!-- code for true or false quiz tab -->
+              <table class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>Question text</th>
+                    <th>Answer</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for question in quiz_tf %}
+                      <tr>
+                        <td>{{ question.question }}</td>
+                        <td>{{ question.answer }}</td>
+                        <td>
+                          <!--
+                          <form action="{{ url_for('auth.admin_delete_user', user_id=user.id) }}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Delete Question</button>
+                          </form>-->
+                        </td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
-            <div class="tab-pane fade" id="materials">
-              <!-- code for materials tab -->
+              
+            <!--Flashcards-->
+            <div class="tab-pane fade" id="flashcards">
+              <table class="table table-striped" >
+                <thead>
+                  <tr>
+                    <th>Flashcard title</th>
+                    <th>Flashcard content</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for flashcard in flashcards %}
+                      <tr>
+                        <td>{{ flashcard.title }}</td>
+                        <td>{{ flashcard.content }}</td>
+                        <td>
+                          <!--
+                          <form action="{{ url_for('auth.admin_delete_user', user_id=user.id) }}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Delete Question</button>
+                          </form>-->
+                        </td>
+                      </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
+
+
+
           </div>
       
     </div>
