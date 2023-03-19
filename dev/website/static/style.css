@@ -180,7 +180,7 @@ a{color:inherit;text-decoration:none}
 
 ::placeholder{
 	color: #b3b3b3;
-} 
+}
 
 @media screen and (max-width: 600px) {
     .col-25, .col-75, input[type=submit] {
@@ -219,7 +219,7 @@ a{color:inherit;text-decoration:none}
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 	font-size: 1.3em;
 }
-  
+
 .quiz-option input[type="radio"] {
 	display: inline-block;
 	margin-right: 10px;
@@ -250,7 +250,7 @@ a{color:inherit;text-decoration:none}
 	font-size: 25px;
 	border: none;
   }
-  
+
 .quiz-submit-button:hover {
 	background-color: #5e8404;
 }
@@ -258,9 +258,20 @@ a{color:inherit;text-decoration:none}
 
 
 
-
-
 /* study.html*/
+.study-card h5{
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	filter: invert(100%);
+	color: rgb(237, 145, 34);
+}
+.study-card h6{
+	position: absolute;
+}
+
+
 .study-card-front,.study-card-back{
 	top: 0;
     left: 0;
@@ -271,11 +282,7 @@ a{color:inherit;text-decoration:none}
 	transform: rotateY(180deg);
 	backface-visibility:hidden;
 	transition:all .4s linear;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 }
-
 
 .study-card-front[active],.study-card-back[active]{
 	transform: rotateY(0deg)
@@ -284,9 +291,9 @@ a{color:inherit;text-decoration:none}
 .paper {
 	height: 550px;
 	width: 100%;
-	background: rgba(255,255,255,0.9);
+	border-radius: 20px;
 	box-shadow: 0px 0px 5px 0px #888;
-	
+
   }
   .paper::before {
 	content: '';
@@ -294,21 +301,23 @@ a{color:inherit;text-decoration:none}
 	left: 45px;
 	height: 100%;
 	width: 2px;
-	background: rgba(255,0,0,0.4);
+	background: #888;
   }
   .lines {
 	margin-top: 40px;
-	height: calc(100% - 40px);
+	height: calc(100% - 60px);
 	width: 100%;
-	background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+	background-image: repeating-linear-gradient(black 1px, black 48px, rgb(237, 145, 34) 49px);
   }
   .text {
 	position: absolute;
-	top: 65px;
+	color: rgba(255, 255, 255, 0.91);
+	font-size: 20px;
+	top: 50px;
 	left: 55px;
 	bottom: 10px;
 	right: 10px;
-	line-height: 25px;
+	line-height: 50px;
 	font-family: 'sans-serif';
 	overflow: hidden;
 	outline: none;
@@ -319,10 +328,117 @@ a{color:inherit;text-decoration:none}
 	height: 200px;
 }
 
+.chapter_selecters input{
+	display: none;
+}
+
+.chapter_selecters label{
+	height: 50px;
+	width: 50px;
+	line-height: 46px;
+	text-align: center;
+	font-size: xx-large;
+	color: rgba(255, 255, 255, 0.55);
+	border: solid 2px rgb(237, 145, 34);
+	border-radius: 25px;
+	transition:color 0.2s;
+	transition:background-color 0.2s;
+}
+.chapter_selecters input:checked + label{
+	color: white;
+	background-color: rgb(237, 145, 34);
+}
+.chapter_selecters label:hover{
+	color: white;
+	background-color: rgb(237, 145, 34);
+}
+.chapter_selecters h1{
+	color: rgb(237, 145, 34);
+}
+.cards-chapter{
+	display: none;
+}
+.cards-chapter[active]{
+	display: flex;
+}
+.cards-page{
+	display: none;
+	position: relative;
+	top:0;
+	left:0;
+	/* animation-name: exit-left;
+	animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.77,0,.175,1);
+	transform: translate3d(100%,0,0) */
+
+
+}
+.cards-page[active]{
+	display:flex;
+	/* transform: translateZ(0); */
+}
+@keyframes exit-left {
+    0% {
+        transform: translateZ(0)
+    }
+
+    to {
+        transform: translate3d(-100%,0,0)
+    }
+}
+
+.i-arrow-r{
+	background-image: url("data:image/svg+xml,%3Csvg version='1' fill='rgba(255, 255, 255, 0.55)' xmlns='http://www.w3.org/2000/svg' width='170.667' height='170.667' viewBox='0 0 128 128'%3E%3Cpath d='M67.9 14.9c-3 2.9-3.9 4.7-3.9 7.2 0 2.8 1.7 5 14.2 17.6L92.4 54H4.3l-2.1 2.3c-3.3 3.5-3.1 11.9.3 15.2L4.9 74h87.5L78.2 88.3C65.7 100.9 64 103.1 64 105.9c0 2.5.9 4.3 3.9 7.2 6.9 6.9 6.3 7.2 34.9-21.4 19-19 25.2-25.9 25.2-27.7 0-1.8-6.2-8.7-25.2-27.7C74.2 7.7 74.8 8 67.9 14.9z'/%3E%3C/svg%3E");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.i-arrow-l{
+	background-image: url("data:image/svg+xml,%3Csvg version='1' fill='rgba(255, 255, 255, 0.55)' xmlns='http://www.w3.org/2000/svg' width='170.667' height='170.667' viewBox='0 0 128 128'%3E%3Cpath d='M67.9 14.9c-3 2.9-3.9 4.7-3.9 7.2 0 2.8 1.7 5 14.2 17.6L92.4 54H4.3l-2.1 2.3c-3.3 3.5-3.1 11.9.3 15.2L4.9 74h87.5L78.2 88.3C65.7 100.9 64 103.1 64 105.9c0 2.5.9 4.3 3.9 7.2 6.9 6.9 6.3 7.2 34.9-21.4 19-19 25.2-25.9 25.2-27.7 0-1.8-6.2-8.7-25.2-27.7C74.2 7.7 74.8 8 67.9 14.9z'/%3E%3C/svg%3E");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	transform: rotateY(180deg);
+}
+.i-arrow-r:hover{
+	background-image: url("data:image/svg+xml,%3Csvg version='1' fill='rgb(237, 145, 34)' xmlns='http://www.w3.org/2000/svg' width='170.667' height='170.667' viewBox='0 0 128 128'%3E%3Cpath d='M67.9 14.9c-3 2.9-3.9 4.7-3.9 7.2 0 2.8 1.7 5 14.2 17.6L92.4 54H4.3l-2.1 2.3c-3.3 3.5-3.1 11.9.3 15.2L4.9 74h87.5L78.2 88.3C65.7 100.9 64 103.1 64 105.9c0 2.5.9 4.3 3.9 7.2 6.9 6.9 6.3 7.2 34.9-21.4 19-19 25.2-25.9 25.2-27.7 0-1.8-6.2-8.7-25.2-27.7C74.2 7.7 74.8 8 67.9 14.9z'/%3E%3C/svg%3E");
+
+}
+.i-arrow-l:hover{
+	background-image: url("data:image/svg+xml,%3Csvg version='1' fill='rgb(237, 145, 34)' xmlns='http://www.w3.org/2000/svg' width='170.667' height='170.667' viewBox='0 0 128 128'%3E%3Cpath d='M67.9 14.9c-3 2.9-3.9 4.7-3.9 7.2 0 2.8 1.7 5 14.2 17.6L92.4 54H4.3l-2.1 2.3c-3.3 3.5-3.1 11.9.3 15.2L4.9 74h87.5L78.2 88.3C65.7 100.9 64 103.1 64 105.9c0 2.5.9 4.3 3.9 7.2 6.9 6.9 6.3 7.2 34.9-21.4 19-19 25.2-25.9 25.2-27.7 0-1.8-6.2-8.7-25.2-27.7C74.2 7.7 74.8 8 67.9 14.9z'/%3E%3C/svg%3E");
+
+}
+
+.note-title,.scoreboard{
+	justify-content: center;
+	align-items: center;
+}
+
+.note-title,.scoreboard h1{
+	color: rgb(237, 145, 34);
+	text-align: center;
+}
+
+.scoreboard-table th{
+	background-color: rgb(237, 145, 34);
+	text-align: center;
+}
+.scoreboard-table td{
+	background-color:#44454e;
+	text-align: center;
+}
+.scoreboard-table-footer td{
+	background-color: rgb(237, 145, 34) !important;
+}
+.user-row td{
+	--bs-table-accent-bg: rgb(0, 140, 140) !important;
+}
+
 
 /* Style  for dashboard.html*/
 .dashboard{
-	
+
     background-blend-mode: multiply;
 	background-image: url(../static/pics/quiz_take_bg.jpg);
 	background-color: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
@@ -351,7 +467,7 @@ a{color:inherit;text-decoration:none}
 table.table-striped tr:nth-of-type(even) {
 	background-color: #ffffff;
 }
-table.table-striped th, 
+table.table-striped th,
 table.table-striped td {
 	border: 2px solid #e0e3e6;
 	padding: 8px;
@@ -364,3 +480,65 @@ table.table-striped th {
 	color: #fff;
 }
 
+.note-card-area{
+	height: 200px;
+}
+.note-card{
+	height: 100%;
+
+}
+.note-button{
+	justify-content: end;
+}
+.note-content{
+	padding-top: 10px;
+	height: 70%;
+}
+.note-content p{
+	width: 100%;
+	word-break:break-all;
+	word-wrap: break-word;
+	line-height: 30px;
+}
+.new-note{
+	animation-name: scale_in;
+	animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.77,0,.175,1);
+}
+
+.delete-note {
+	animation-name: scale_out !important;
+	animation-duration: 1s !important;
+    animation-iteration-count: 1 !important;
+    animation-timing-function: cubic-bezier(.77,0,.175,1) !important;
+	transform: translateZ(-1) !important;
+}
+
+@keyframes scale_in {
+    0% {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+@keyframes scale_out {
+    0% {
+        transform: scale(1)
+    }
+
+    to {
+        transform: scale(0);
+
+    }
+}
+
+.add-note-edit{
+	animation-name: scale_in;
+	animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(.77,0,.175,1);
+	transform: translateZ(-1);
+}
