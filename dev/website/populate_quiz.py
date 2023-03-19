@@ -4,7 +4,7 @@
 from .models import Quiz_M, Quiz_TF, Material
 from . import db
 
-
+ 
 quizzes_M = [
     {
         'language': 'Chinese',
