@@ -356,28 +356,6 @@ materials = [
     {"language": "Chinese", "title": "古怪", "content": "odd"},
 ]
 
-users = [
-# Tester user
-# username: test
-# email: test@test.com
-# password: test
-    {"username": "test", "email": "test@test.com",
-        "password": "sha256$8054COsXmCq7VQug$3bdc1fb484fbde0a7ddc56fa96bb004b7238fd805c1ab7b4b6e276296b6c6d9f"},
-    {"username": "Peter", "email": "Peter@test.com", "password": "none"},
-    {"username": "Mary", "email": "Mary@test.com", "password": "none"}
-]
-
-scores = [
-    {"id":1,"score": 100, "user_id": 1},
-    {"id":2,"score": 90, "user_id": 1},
-    {"id":3,"score": 100, "user_id": 2},
-    {"id":4,"score": 100, "user_id": 2},
-    {"id":5,"score": 80, "user_id": 3},
-    {"id":6,"score": 80, "user_id": 3},
-    {"id":7,"score": 80, "user_id": 3}
-]
-
-
 for quiz_question in quizzes_M:
     # Check if a question with the same text already exists in the database
     existing_question = Quiz_M.query.filter_by(question=quiz_question["question_text"]).first()
