@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User, Quiz_M, Quiz_TF, Material, Score
+from .models import User, Quiz_M, Quiz_TF, Material, Score, Note
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ## means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user
-from sqlalchemy.sql import func
+from sqlalchemy.sql import func,desc
 from random import shuffle
 from datetime import datetime
 from flask import abort
@@ -99,13 +99,83 @@ def study():
     # Get the language from the URL parameter
     language = request.args.get('language', 'Chinese')
 
+    # The number of chapters
+    num_chapter = 5
+    # The number of cards in one chapter
+    num_card_chapter = 20
+
     # Select 9 random Material from the database
-    cards = Material.query.filter_by(language=language).order_by(func.random()).limit(9).all()
-    shuffle(cards)
-    return render_template('study.html', user=current_user,cards=cards, language=language)
+    allCards = Material.query.filter_by(language=language).order_by(
+        func.random()).limit(num_chapter * num_card_chapter).all()
+    shuffle(allCards)
+    res_cards = {i: [] for i in range(1, num_chapter + 1)}
+
+    # Arrange to chapter
+    for i in range(1, num_chapter + 1):
+        for _ in range(num_card_chapter):
+            res_cards[i].append(allCards.pop())
+
+    allNotes = Note.query.filter_by(user_id=current_user.id).order_by(Note.date.desc()).all()
+
+    return render_template('study.html', user=current_user, cards=res_cards, notes=allNotes, language=language)
 
 
+@auth.route('/addnote/<string:content>', methods=['GET'])
+@login_required
+def add_note(content):
+    print(current_user.username)
+    all_note = Note.query.filter_by(user_id=current_user.id).order_by(Note.id.desc()).all()
+    new_note_id = None
+    if len(all_note) == 0:
+        new_note_id = 1
+    else:
+        new_note_id = all_note[0].id + 1
 
+    db.session.add(Note(data=content, date=func.now(), user_id=current_user.id))
+
+    db.session.commit()
+    print(str(new_note_id))
+    return str(new_note_id)
+
+
+@auth.route('/delete_note/<string:id>', methods=['GET'])
+@login_required
+def delete_note(id):
+    if not id.startswith("note-"):
+        return "error"
+    try:
+        id = int(id.split("-")[1])
+    except:
+        return "error"
+    all_note = Note.query.filter_by(id=id).all()
+    if len(all_note) != 1:
+        return "error"
+    db.session.delete(all_note[0])
+    db.session.commit()
+    return "success"
+
+
+@auth.route('/update_note/<string:id>/<string:note_content>', methods=['GET'])
+@login_required
+def update_note(id, note_content):
+    if not id.startswith("note-"):
+        return "error"
+    try:
+        id = int(id.split("-")[1])
+    except:
+        return "error"
+    all_note = Note.query.filter_by(id=id).all()
+    if len(all_note) != 1:
+        return "error"
+
+    Note.query.filter_by(id=id).update({'data': note_content, 'date': func.now()})
+    db.session.commit()
+    return "success"
+
+
+# for cache quiz
+__user_quizzes_multi = {}
+__user_quizzes_tf = {}
 
 @auth.route('/quiz_take', methods=['GET', 'POST'])
 @login_required
