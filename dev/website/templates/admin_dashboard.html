@@ -9,25 +9,26 @@
      
         <div class="display-1 text-center my-5 py-5 admin_header">Admin Dashboard</div>
           <!--tabs-->
-          <ul class="nav nav-tabs">
+          <ul class="nav nav-tabs" id="dashboard-tabs" role="tablist">
             <li class="nav-item">
-              <a class="nav-link fs-4 active" data-bs-toggle="tab" href="#user-accounts">User Accounts</a>
+              <!--active controls which tab is active-->
+              <a class="nav-link fs-4  {% if tab == 'user-accounts' %} active{% endif %}" data-bs-toggle="tab" href="#user-accounts">User Accounts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-4" data-bs-toggle="tab" href="#multiple-choice-quiz">Multiple Choice Quiz</a>
+              <a class="nav-link fs-4 {% if tab == 'multiple-choice-quiz' %} active{% endif %}" data-bs-toggle="tab" href="#multiple-choice-quiz">Multiple Choice Quiz</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-4" data-bs-toggle="tab" href="#true-or-false-quiz">True or False Quiz</a>
+              <a class="nav-link fs-4 {% if tab == 'true-or-false-quiz' %} active{% endif %}" data-bs-toggle="tab" href="#true-or-false-quiz">True or False Quiz</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-4" data-bs-toggle="tab" href="#flashcards">Flashcards</a>
+              <a class="nav-link fs-4 {% if tab == 'flashcards' %} active{% endif %}" data-bs-toggle="tab" href="#flashcards">Flashcards</a>
             </li>
           </ul>
           
 
           <div class="tab-content" >
             <!--user accounts-->
-            <div class="tab-pane fade show active" id="user-accounts" >
+            <div class="tab-pane fade {% if tab == 'user-accounts' %}show active{% endif %} " id="user-accounts" >
               <table class="table table-striped" >
                 <thead>
                   <tr>
@@ -56,9 +57,9 @@
             </div>
 
 
-
             <!--Multiple choice-->
-            <div class="tab-pane fade" id="multiple-choice-quiz">
+            <!--tab and show active is the key for page staying on current tab-->
+            <div class="tab-pane fade {% if tab == 'multiple-choice-quiz' %}show active{% endif %}" id="multiple-choice-quiz">
               <table class="table table-striped" >
                 <thead>
                   <tr>
@@ -73,11 +74,10 @@
                         <td>{{ question.question }}</td>
                         <td>{{ question.answer }}</td>
                         <td>
-                          <!--
-                          <form action="{{ url_for('auth.admin_delete_user', user_id=user.id) }}" method="POST">
+                          <form action="{{ url_for('auth.admin_delete_multi_question', question_id=question.id, tab='multiple-choice-quiz')}}" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Delete Question</button>
-                          </form>-->
+                          </form>
                         </td>
                       </tr>
                   {% endfor %}
@@ -87,7 +87,7 @@
 
         
             <!--True/False choice-->
-            <div class="tab-pane fade" id="true-or-false-quiz">
+            <div class="tab-pane fade {% if tab == 'true-or-false-quiz' %}show active{% endif %}" id="true-or-false-quiz">
               <table class="table table-striped" >
                 <thead>
                   <tr>
@@ -102,11 +102,10 @@
                         <td>{{ question.question }}</td>
                         <td>{{ question.answer }}</td>
                         <td>
-                          <!--
-                          <form action="{{ url_for('auth.admin_delete_user', user_id=user.id) }}" method="POST">
+                          <form action="{{ url_for('auth.admin_delete_tf_question', question_id=question.id, tab='true-or-false-quiz') }}" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Delete Question</button>
-                          </form>-->
+                          </form>
                         </td>
                       </tr>
                   {% endfor %}
@@ -115,12 +114,13 @@
             </div>
               
             <!--Flashcards-->
-            <div class="tab-pane fade" id="flashcards">
+            <div class="tab-pane fade {% if tab == 'flashcards' %}show active{% endif %}" id="flashcards">
               <table class="table table-striped" >
                 <thead>
                   <tr>
                     <th>Flashcard title</th>
                     <th>Flashcard content</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -129,23 +129,23 @@
                         <td>{{ flashcard.title }}</td>
                         <td>{{ flashcard.content }}</td>
                         <td>
-                          <!--
-                          <form action="{{ url_for('auth.admin_delete_user', user_id=user.id) }}" method="POST">
+                          <form action="{{ url_for('auth.admin_delete_flashcard', flashcard_id=flashcard.id, tab='flashcards') }}" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger">Delete Question</button>
-                          </form>-->
+                            <button type="submit" class="btn btn-danger">Delete Flashcards</button>
+                          </form>
                         </td>
                       </tr>
                   {% endfor %}
                 </tbody>
               </table>
             </div>
-
-
-
           </div>
       
     </div>
   </div>
 </div>
+
+
+
+
 {% endblock %}

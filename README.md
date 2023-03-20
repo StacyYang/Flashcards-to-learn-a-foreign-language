@@ -19,6 +19,7 @@
 3. **Notes Creation:** Allow users to add notes based on their needs.
 4. **Take quiz:**  Allow users to take quizzes based on their desired language. The system tracks users' scores and dates of taking the quiz, and then displays them on a scoreboard.
 5. **Scoreboard:** Displays users' scores on quizzes. Users can view their own scores as well as the whole ranking scoreboard.
+6. **Admin account:** Allow administer to manage the website, including view/delete all user accounts, view/delete quiz questions, view/delete flashcards.
 
 ## Setup & Install:
 Make sure you have the latest version of Python installed
@@ -37,6 +38,15 @@ pip install -r docs/expert_users/requirements.txt
 ## Administer account:
 <li>username: administer
 <li>password: 1234567
+
+## Database
+Database is pre-populated, if batabase doesn't have enought questions or flashcards, can re-populate database again.
+Steps: 1. move populate_database.py from docs/developers to dev/website
+       2. uncomment this line of code "from . import populate_database"  in __init__.py
+       3. Refresh the website
+       4. Comment off the code "from . import populate_database"  in __init__.py
+       5.  move populate_database.py back to docs/developers 
+
 
 ## How to check status of product
 After building the product

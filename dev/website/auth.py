@@ -43,17 +43,24 @@ def sign_up():
         password2 = request.form.get('password2')
         email = request.form.get('email')
 
+        errors = []
+
         user = User.query.filter_by(username=username).first()
         if user:
             flash('Username already exists.', category='error')
+            errors.append('Username already exists')
         elif len(username) < 2:
             flash('Username must be greater than 1 character.', category='error')
+            errors.append('Username must be greater than 1 character.')
         elif password1 != password2:
             flash('Password don\'t match.', category='error')
+            errors.append('Password don\'t match.')
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
+            errors.append('Password must be at least 7 characters.')
         elif len(email) < 4:
             flash('Email must be greater than 3 characters.', category='error')
+            errors.append('Email must be greater than 3 characters.')
         else:
             # add user to database
             new_user = User(email=email, username=username, password=generate_password_hash(password1, method='sha256'))
@@ -65,7 +72,7 @@ def sign_up():
             
             return redirect(url_for('auth.choose_lang_mode'))
             
-    return render_template("login.html", user=current_user)
+    return render_template("login.html", user=current_user, active_tab='tab-2')
 
 
 
@@ -177,15 +184,20 @@ def administer_login():
         password = request.form.get('password')
 
         user = User.query.filter_by(username=username).first()
-        if user:
+        if user and username != "administer":
+            flash('This is the administer login. Please login as a regular user.', category='error')
+            return render_template("login.html", user=current_user)
+        elif user and username == "administer":
             if check_password_hash(user.password, password):
                 flash('Logged in successfully as the administer!', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('auth.admin_dashboard'))
+                return redirect(url_for('auth.admin_dashboard', user=current_user))
             else:
                 flash('Incorrect password, try again.', category='error')
+                return render_template("login.html", active_tab='tab-3', user=current_user)
         else:
-            flash('This is the administer login.', category='error')
+            flash('User does not exists. Please try again.', category='error')
+            return render_template("login.html", active_tab='tab-3', user=current_user)
 
     return render_template("login.html", user=current_user)
        
@@ -198,12 +210,15 @@ def admin_dashboard():
         quiz_m = Quiz_M.query.all()
         quiz_tf = Quiz_TF.query.all()
         flashcards = Material.query.all()
-        return render_template('admin_dashboard.html', users=users, user=current_user, quiz_m=quiz_m, quiz_tf=quiz_tf, flashcards=flashcards)
-    else:
-        abort(403)
-    
-    
 
+        # Set default active tab to be user accounts
+        tab = request.args.get('tab', 'user-accounts')
+
+        return render_template('admin_dashboard.html', users=users, user=current_user, quiz_m=quiz_m, quiz_tf=quiz_tf, flashcards=flashcards, tab=tab)
+    else:
+        return render_template("login.html", user=current_user)
+    
+    
 
 @auth.route('/admin/users/delete/<int:user_id>', methods=['POST'])
 @login_required
@@ -215,9 +230,51 @@ def admin_delete_user(user_id):
             db.session.commit()
         return redirect(url_for('auth.admin_dashboard'))
     else:
-        abort(403)
+        return render_template("login.html",user=current_user)
     
    
-   
+@auth.route('/admin/mcq/delete/<int:question_id>', methods=['POST'])
+@login_required
+def admin_delete_multi_question(question_id):
+    if current_user.username == 'administer' and request.method == 'POST':
+        question = Quiz_M.query.get(question_id)
+        if question:
+            db.session.delete(question)
+            db.session.commit()
+    
+        tab = request.args.get('tab', 'multiple-choice-quiz')
+        return redirect(url_for('auth.admin_dashboard', _anchor=tab, tab=tab ))
+    else:
+        return render_template("login.html", user=current_user)
 
+
+@auth.route('/admin/tf/delete/<int:question_id>', methods=['POST'])
+@login_required
+def admin_delete_tf_question(question_id):
+    if current_user.username == 'administer' and request.method == 'POST':
+        question = Quiz_TF.query.get(question_id)
+        if question:
+            db.session.delete(question)
+            db.session.commit()
+    
+        tab = request.args.get('tab', 'true-or-false-quiz')
+        return redirect(url_for('auth.admin_dashboard', _anchor=tab, tab=tab ))
+    else:
+        return render_template("login.html", user=current_user)
+  
+
+
+@auth.route('/admin/flashcard/delete/<int:flashcard_id>', methods=['POST'])
+@login_required
+def admin_delete_flashcard(flashcard_id):
+    if current_user.username == 'administer' and request.method == 'POST':
+        flashcard = Material.query.get(flashcard_id)
+        if flashcard:
+            db.session.delete(flashcard)
+            db.session.commit()
+    
+        tab = request.args.get('tab', 'flashcards')
+        return redirect(url_for('auth.admin_dashboard', _anchor=tab, tab=tab ))
+    else:
+        return render_template("login.html", user=current_user)
 

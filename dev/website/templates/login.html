@@ -9,9 +9,10 @@
         <div class="card">
             <div class="login-box">
                 <div class="login-snip">
+                    <!--checked here is the control to show which form.-->
                     <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Login</label>
-                    <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
-                    <input id="tab-3" type="radio" name="tab" class="admin-login"><label for="tab-3" class="tab">Admin Login</label>
+                    <input id="tab-2" type="radio" name="tab" class="sign-up" {% if active_tab == 'tab-2' %} checked{% endif %}><label for="tab-2" class="tab">Sign Up</label>
+                    <input id="tab-3" type="radio" name="tab" class="admin-login" {% if active_tab == 'tab-3' %} checked{% endif %}><label for="tab-3" class="tab">Admin Login</label>
 
                     <div class="login-space">
                         <!--login-->
@@ -48,7 +49,6 @@
                                     <input id="username-input" name="username" type="text" class="input" placeholder="Create your Username">
                                     <div id="username-constraint" class="constraint-message"></div>
                                 </div>
-                                
 
                                 <div class="group">
                                     <label for="password1" class="label">Password</label>
