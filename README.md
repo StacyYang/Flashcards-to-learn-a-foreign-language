@@ -40,12 +40,12 @@ pip install -r docs/expert_users/requirements.txt
 <li>password: 1234567
 
 ## Database
-Database is pre-populated, if batabase doesn't have enought questions or flashcards, can re-populate database again.
-Steps: 1. move populate_database.py from docs/developers to dev/website
-       2. uncomment this line of code "from . import populate_database"  in __init__.py
-       3. Refresh the website
-       4. Comment off the code "from . import populate_database"  in __init__.py
-       5.  move populate_database.py back to docs/developers 
+Database is pre-populated, if batabase doesn't have enought questions or flashcards, can re-populate database again.<br>
+Steps: 
+       <li> uncomment this line of code "from . import populate_database"  in __init__.py </li>
+       <li> Refresh the website </li>
+       <li> Comment off the code "from . import populate_database"  in __init__.py</li>
+      
 
 
 ## How to check status of product
