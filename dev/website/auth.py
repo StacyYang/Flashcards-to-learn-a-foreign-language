@@ -361,10 +361,10 @@ def scoreboard():
             user = User.query.filter_by(id=item[0]).one()
         except:
             continue
-        user_score_newest = Score.query.filter_by(
-            user_id=user.id).order_by(Score.date.desc()).first()
-        row = {"username": user.username, "rank": rank + 1,
-               "total_score": item[1], "newest_score": user_score_newest.score, "newest_time": user_score_newest.date}
+        user_score_newest = Score.query.filter_by(user_id=user.id).order_by(Score.date.desc()).first()
+        newest_time = user_score_newest.date.strftime('%Y-%m-%d %H:%M:%S')
+        row = {"username": user.username, "rank": rank + 1, "total_score": item[1],
+               "newest_score": user_score_newest.score, "newest_time": newest_time}
         # replace user_score
         if item[0] == current_user.id:
             user_score = row
