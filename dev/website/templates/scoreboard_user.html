@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Scoreboard{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row mx-auto scoreboard">
+        <h1 style="text-align: center;">Score History  - {{user_looked.username}}</h1>
+    </div>
+    <div class="table-responsive mx-lg-5">
+        <table class="table table-dark table-striped table-lg scoreboard-table" >
+          <thead>
+            <tr>
+              <th scope="col" style="border-radius: 10px 0 0 0;">Score</th>
+              <th scope="col" style="border-radius: 0 10px 0 0;">Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for score in all_score %}
+            <tr class="user-row">
+                <td class="col-lg-1">{{score.score}}</td>
+                <td class="col-lg-1">{{score.date}}</td>
+            </tr>
+            {% endfor %}
+
+          </tbody>
+          <tfoot class="scoreboard-table-footer" >
+            <td style="border-radius: 0 0 0 10px;"></td>
+            <td style="border-radius: 0 0 10px 0;"></td>
+        </tfoot>
+        </table>
+      </div>
+
+</div>
+
+
+{% endblock %}

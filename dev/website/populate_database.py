@@ -2,7 +2,7 @@
 # Each questions will be checked before populating to database, Only new questions will be populated to database.
 
 from .models import Quiz_M, Quiz_TF, Material
-from ...docs.expert_users import db
+from . import db
 
 
 quizzes_M = [
@@ -378,6 +378,19 @@ for material in materials:
     if existing_material is None:
         new_material = Material(title=material["title"], content=material["content"],language=quiz_question["language"])
         db.session.add(new_material)
+
+for user in users:
+    # Check if a user with the same username already exists in the database
+    existing_user = User.query.filter_by(username=user["username"]).first()
+    if existing_user is None:
+        new_user = User(username=user["username"], email=user["email"], password=user["password"])
+        db.session.add(new_user)
+
+for s in scores:
+    existing_s = Score.query.filter_by(id = s["id"]).first()
+    if existing_s is None:
+        new_score = Score(score=s["score"], user_id=s["user_id"])
+        db.session.add(new_score)
 
 # Commit the changes to the database
 db.session.commit()

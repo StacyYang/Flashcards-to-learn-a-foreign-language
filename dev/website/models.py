@@ -2,7 +2,6 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
-
 # one to many relationship with User
 # Notes that to be shown in study mode
 class Note(db.Model):
@@ -24,7 +23,7 @@ class Score(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return f'<Note {self.score}>'
+        return f'<Score {self.score}>'
 
 
 # Tester user

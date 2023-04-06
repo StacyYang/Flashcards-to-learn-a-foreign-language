@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Scoreboard{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row mx-auto scoreboard">
+        <h1 style="text-align: center;">Scoreboard</h1>
+    </div>
+    <div class="table-responsive mx-lg-5">
+        <table class="table table-dark table-striped table-lg scoreboard-table" >
+          <thead>
+            <tr>
+              <th scope="col" style="border-radius: 10px 0 0 0;">Rank</th>
+              <th scope="col">Name</th>
+              <th scope="col">Total Score</th>
+              <th scope="col">Newest Score</th>
+              <th scope="col" style="border-radius: 0 10px 0 0;">Update Time</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="user-row">
+                <td>{{user_score.rank}}</td>
+                <td><a href="/scoreboard/look?username={{user_score.username}}">{{user_score.username}}(You)</a></td>
+                <td>{{user_score.total_score}}</td>
+                <td>{{user_score.newest_score}}</td>
+                <td>{{user_score.newest_time}}</td>
+            </tr>
+            {% for score in all_score %}  
+            <tr {% if score.username == user_score.username %}class="user-row"{%endif%}>
+                <td>{{score.rank}}</td>
+                <td><a href="/scoreboard/look?username={{score.username}}">{{score.username}}</a></td>
+                <td>{{score.total_score}}</td>
+                <td>{{score.newest_score}}</td>
+                <td>{{score.newest_time}}</td>
+            </tr>
+            {% endfor %}            
+          </tbody>
+          <tfoot class="scoreboard-table-footer" >
+            <td style="border-radius: 0 0 0 10px;"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="border-radius: 0 0 10px 0;"></td>
+        </tfoot>
+        </table>
+      </div>
+
+</div>
+
+
+{% endblock %}
