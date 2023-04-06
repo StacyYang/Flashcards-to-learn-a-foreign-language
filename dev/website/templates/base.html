@@ -36,13 +36,11 @@
           {% if user.is_authenticated %}
           <img src="{{ url_for('static', filename='pics/flashy.jpg') }}" alt="Logo" width="50" height="50"  class="rounded-circle" >
           <a class="nav-item nav-link" style="color: rgb(237, 145, 34);">Welcome, {{ user.username }}!</a>
-              {% if user.is_authenticated and user.username == "administer" %}
-                <a class="nav-item nav-link" id="administer" href="/admin_dashboard" style="color: rgb(237, 85, 34);">&nbsp;&nbsp;&nbsp;&nbsp; Manager Dashboard &nbsp;&nbsp;&nbsp;&nbsp;</a>
-              {% endif %}
           <a class="nav-item nav-link" id="home" href="/">Home</a>
           <a class="nav-item nav-link" id="choice" href="/choose_lang_mode">Choose language and mode</a>
+          <a class="nav-item nav-link" id="scoreboard" href="/scoreboard">Scoreboard</a>
           <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          
+
           {% else %}
           <img src="{{ url_for('static', filename='pics/flashy.jpg') }}" alt="Logo" width="50" height="50"  class="rounded-circle" >
           <a class="nav-item nav-link" id="home" href="/">Home</a>
@@ -52,7 +50,7 @@
       </div>
     </nav>
 
-    
+
     <!--flash message design-->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -77,27 +75,25 @@
       </ul>
     {% endif %}
     {% endwith %}
-      
+
     <script>
       $(".alert").fadeIn().delay(2000).fadeOut();
-    </script> 
+    </script>
 
 
 
 
     <!--Things that need vary in each html put here-->
-    <div class="container" ></div>
       {% block content %}
 
       {% endblock%}
-    </div>
-  
+
 
 
     <!-- Footer -->
     <footer class="bg-dark text-center text-white">
       <!-- Grid container -->
-      <div class="container p-4" >
+      <div class="container p-4">
         <section class="mb-4">
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fa fa-facebook-f"></i></a>
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fa fa-twitter"></i></a>
@@ -106,7 +102,7 @@
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fa fa-linkedin"></i></a>
           <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fa fa-github"></i></a>
         </section>
-        
+
         <!-- Section: Subscribe Form -->
         <section class="">
           <form action="">
@@ -128,9 +124,9 @@
             </div>
           </form>
         </section>
-        
+
         <!-- Section: Text -->
-        <section class="mb-4" >
+        <section class="mb-4">
           <p>
             Learning a new language is a truly exhilarating and fulfilling experience. It opens up a world of new possibilities, allowing you to connect with people from different cultures and understand their perspectives. It also expands your mind and enhances your cognitive abilities, making you a more well-rounded individual. The process of learning a new language can be challenging, but the reward of being able to effectively communicate and connect with others in their native tongue makes it all worth it.
           </p>
