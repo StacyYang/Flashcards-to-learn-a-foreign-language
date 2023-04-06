@@ -412,6 +412,31 @@ a{color:inherit;text-decoration:none}
 
 }
 
+.note-title,.scoreboard{
+	justify-content: center;
+	align-items: center;
+}
+
+.note-title,.scoreboard h1{
+	color: rgb(237, 145, 34);
+	text-align: center;
+}
+
+.scoreboard-table th{
+	background-color: rgb(237, 145, 34);
+	text-align: center;
+}
+.scoreboard-table td{
+	background-color:#44454e;
+	text-align: center;
+}
+.scoreboard-table-footer td{
+	background-color: rgb(237, 145, 34) !important;
+}
+.user-row td{
+	--bs-table-accent-bg: rgb(0, 140, 140) !important;
+}
+
 /* Style  for dashboard.html*/
 .dashboard{
 	
