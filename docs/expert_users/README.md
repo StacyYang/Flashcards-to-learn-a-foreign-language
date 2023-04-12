@@ -62,3 +62,13 @@ Click on the commit id will see code changes
 
 ### View past status
 Click the <> button on the commit history page
+
+### Functions that can be checked:
+<li> Sign up for a new account
+<li> Login with your account, go to "choose language and mode".
+     option 1: choose language, choose "study" to view flashcards, you can also add notes as needed.
+     option 2: choose language, choose "quiz" to take a quiz and view your quiz result.
+<li> Go to "scoreboard", view total rank and personal rank.
+<li> Login as administer, go to "dashboard" to review all user accounts, flashcards and quiz questions.
+<li> Logout is also implemented.
+
