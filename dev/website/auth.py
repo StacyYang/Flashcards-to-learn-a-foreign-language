@@ -381,5 +381,7 @@ def scoreboard_user():
     # user be looked
     user_looked = User.query.filter_by(username=request.args.get('username')).one()
     all_score = Score.query.filter_by(user_id=user_looked.id).order_by(Score.date.desc()).all()
+    for score in all_score:
+        score.date = score.date.strftime("%Y-%m-%d %H:%M:%S")
 
     return render_template('scoreboard_user.html', user=current_user, user_looked=user_looked, all_score=all_score)
