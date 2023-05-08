@@ -1,1 +1,1 @@
-No blockers so far
+when we tried to create a new note and edit it, the original note will show "undefined". But after we refresh it, the original note content will be displayed.
